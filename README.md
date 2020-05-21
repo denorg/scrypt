@@ -1,9 +1,10 @@
-# 🏁 Deno Starter
+# scrypt
 
-This is a starter template for building Deno packages, with GitHub Actions CI, tests,and a CLI.
+Simple password hashing with scrypt using rust-crypto
 
-[![Test CI](https://github.com/denorg/starter/workflows/Test%20CI/badge.svg)](https://github.com/denorg/starter/actions)
+This library doesn't work yet because of [denoland/deno#5609](https://github.com/denoland/deno/issues/5609)
 
+TODO: finish documentation
 ```ts
 import { mode } from "https://raw.githubusercontent.com/denorg/starter/master/mod.ts";
 
