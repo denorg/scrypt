@@ -185,7 +185,7 @@ function integrify(input: Uint8Array): number {
 export function BlockMix(block: Uint8Array): Uint8Array {
   const r: number = Math.floor(block.length / 128);
   let X: Uint8Array = block.subarray(block.length - 64);
-  let Y: Uint8Array = new Uint8Array(block.length);
+  let Y: Uint8Array = block.slice();
   let temp: Uint8Array;
   for (let i: number = 0; i < 2 * r; i++) {
     temp = xor(X, block.subarray(i * 64, (i + 1) * 64));
@@ -210,11 +210,9 @@ function R(data: number, shift: number): number {
  * @returns {Uint8Array}
  */
 export function salsa20_8(input: Uint8Array): Uint8Array {
-  if (input.length != 64) {
-    throw new Error("incorrect input length");
-  }
+  //B32 is a Uint32 representation of the buffer provided on input
   let B32 = new Uint32Array(input.buffer);
-  let x = new Uint32Array(B32);
+  let x = B32.slice();
   for (let i: number = 0; i < 8; i += 2) {
     x[4] ^= R(x[0] + x[12], 7);
     x[8] ^= R(x[4] + x[0], 9);
@@ -252,7 +250,7 @@ export function salsa20_8(input: Uint8Array): Uint8Array {
   for (let i: number = 0; i < 16; ++i) {
     B32[i] += x[i];
   }
-  return new Uint8Array(B32.buffer);
+  return input;
 }
 /**
  * xor two Uint8Arrays
@@ -261,10 +259,9 @@ export function salsa20_8(input: Uint8Array): Uint8Array {
  * @returns {Uint8Array} - xor result
  */
 function xor(a: Uint8Array, b: Uint8Array): Uint8Array {
-  const length = Math.max(a.length, b.length);
-  let buffer = new Uint8Array(length);
-  for (let i: number = 0; i < length; i++) {
-    buffer[i] = (a[i] ^ b[i]) >>> 0;
+  let buffer = new Uint8Array(a);
+  for (let i: number = a.length-1; i >= 0; i--) {
+    buffer[i] ^= b[i];
   }
   return buffer;
 }
