@@ -3,6 +3,7 @@ import { pbkdf2 } from "https://denopkg.com/chiefbiiko/pbkdf2/mod.ts";
 import { scrypt, salsa20_8, BlockMix, ROMix } from "./scrypt.ts";
 
 Deno.test("salsa20/8 core", async (): Promise<void> => {
+  let x: Uint32Array = new Uint32Array(16);
   // deno-fmt-ignore
   const expectedOutput: Uint8Array = new Uint8Array([
         0xa4, 0x1f, 0x85, 0x9c, 0x66, 0x08, 0xcc, 0x99, 0x3b, 0x81, 0xca, 
@@ -21,7 +22,7 @@ Deno.test("salsa20/8 core", async (): Promise<void> => {
         0x5a, 0xc5, 0xaa, 0x32, 0x76, 0x02, 0x1d, 0x29, 0x09, 0xc7, 0x48, 
         0x29, 0xed, 0xeb, 0xc6, 0x8d, 0xb8, 0xb8, 0xc2, 0x5e
     ])
-  assertEquals(salsa20_8(salsaInput), expectedOutput);
+  assertEquals(salsa20_8(salsaInput, x), expectedOutput);
 });
 
 Deno.test("scryptBlockMix", async (): Promise<void> => {
