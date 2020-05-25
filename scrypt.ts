@@ -21,11 +21,11 @@ export async function scrypt(
   dklen?: number,
   outputEncoding?: encoding,
 ): Promise<(Uint8Array | string)> {
-  dklen = dklen ? dklen : 32;
+  dklen = dklen ?? 64;
   password = typeof password === "string" ? encoder.encode(password) : password;
   salt = typeof salt === "string" ? encoder.encode(salt) : salt;
   const blockSize: number = 128 * r;
-  let hashResult: Uint8Array = pbkdf2(
+  const hashResult: Uint8Array = pbkdf2(
     "sha256",
     password,
     salt,
@@ -34,7 +34,7 @@ export async function scrypt(
     blockSize * p,
     1,
   ) as Uint8Array;
-  let blockPromises: Array<Promise<Uint8Array>> = [];
+  const blockPromises: Array<Promise<Uint8Array>> = [];
   for (let i: number = 0; i < p; i++) {
     blockPromises.push(
       ROMix(
@@ -82,7 +82,7 @@ export function scryptSync(
   dklen?: number,
   outputEncoding?: encoding,
 ): (Uint8Array | string) {
-  dklen = dklen ? dklen : 32;
+  dklen = dklen ?? 64;
   password = typeof password === "string" ? encoder.encode(password) : password;
   salt = typeof salt === "string" ? encoder.encode(salt) : salt;
   const blockSize: number = 128 * r;
@@ -128,16 +128,18 @@ export async function ROMix(
   blockSize?: number,
 ): Promise<Uint8Array> {
   blockSize = blockSize ? blockSize : block.length;
-  let V: Uint8Array = new Uint8Array(iterations * blockSize);
+  const V: Uint8Array = new Uint8Array(iterations * blockSize);
+  const temp: Uint32Array = new Uint32Array(16);
   for (let i: number = 0; i < iterations; i++) {
     V.set(block, i * blockSize);
-    block = BlockMix(block);
+    block = BlockMix(block, temp);
   }
   let j: number;
   for (let i: number = 0; i < iterations; i++) {
     j = (integrify(block) & (iterations - 1)) >>> 0;
     block = BlockMix(
       xor(block, V.subarray(j * blockSize, (j + 1) * blockSize)),
+      temp
     );
   }
   return block;
@@ -154,7 +156,7 @@ export function ROMixSync(
   blockSize?: number,
 ): Uint8Array {
   blockSize = blockSize ? blockSize : block.length;
-  let V: Uint8Array = new Uint8Array(iterations * blockSize);
+  const V: Uint8Array = new Uint8Array(iterations * blockSize);
   for (let i: number = 0; i < iterations; i++) {
     V.set(block, i * blockSize);
     block = BlockMix(block);
@@ -175,22 +177,22 @@ export function ROMixSync(
  */
 function integrify(input: Uint8Array): number {
   const dataview = new DataView(input.buffer);
-  return dataview.getUint32(input.byteLength - 64, true);
+  return dataview.getUint32(input.length - 64, true);
 }
 /**
  * scryptBlockMix implementation based on RFC7914
  * @param {Uint8Array} block
+ * @param {Uint32Array} [temp] Temporary array that can be used to avoid creating new arraybuffers
  * @returns {Uint8Array} 
  */
-export function BlockMix(block: Uint8Array): Uint8Array {
-  const r: number = Math.floor(block.length / 128);
+export function BlockMix(block: Uint8Array, temp?: Uint32Array): Uint8Array {
+  const r2: number = Math.floor(block.length / 64);
   let X: Uint8Array = block.subarray(block.length - 64);
   let Y: Uint8Array = block.slice();
-  let temp: Uint8Array;
-  for (let i: number = 0; i < 2 * r; i++) {
-    temp = xor(X, block.subarray(i * 64, (i + 1) * 64));
-    X = salsa20_8(temp);
-    Y.set(X, i % 2 === 0 ? i * 32 : (Math.ceil(i / 2) + r - 1) * 64);
+  temp = temp ?? new Uint32Array(16);
+  for (let i: number = 0; i < r2; i++) {
+    X = salsa20_8(xor(X, block.subarray(i * 64, (i + 1) * 64)), temp);
+    Y.set(X, (i + (i % 2 * (r2 - 1))) * 32);
   }
   return Y;
 }
@@ -207,12 +209,13 @@ function R(data: number, shift: number): number {
 /**
  * Salsa20/8 core implementation based on RFC7914 and js-salsa20
  * @param {Uint8Array} input
+ * @param {Uint32Array} x temporary array that's used to avoid creating new arraybuffers
  * @returns {Uint8Array}
  */
-export function salsa20_8(input: Uint8Array): Uint8Array {
+export function salsa20_8(input: Uint8Array, x:Uint32Array): Uint8Array {
   //B32 is a Uint32 representation of the buffer provided on input
-  let B32 = new Uint32Array(input.buffer);
-  let x = B32.slice();
+  const B32 = new Uint32Array(input.buffer);
+  x.set(B32);
   for (let i: number = 0; i < 8; i += 2) {
     x[4] ^= R(x[0] + x[12], 7);
     x[8] ^= R(x[4] + x[0], 9);
@@ -250,6 +253,7 @@ export function salsa20_8(input: Uint8Array): Uint8Array {
   for (let i: number = 0; i < 16; ++i) {
     B32[i] += x[i];
   }
+  //since the underlying buffer was modified we don't need a new Uint8Array as a representation of it.
   return input;
 }
 /**
@@ -259,7 +263,7 @@ export function salsa20_8(input: Uint8Array): Uint8Array {
  * @returns {Uint8Array} - xor result
  */
 function xor(a: Uint8Array, b: Uint8Array): Uint8Array {
-  let buffer = new Uint8Array(a);
+  const buffer = new Uint8Array(a);
   for (let i: number = a.length-1; i >= 0; i--) {
     buffer[i] ^= b[i];
   }
