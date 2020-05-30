@@ -1,5 +1,6 @@
-/*import { sha256 } from "https://denopkg.com/chiefbiiko/sha256/mod.ts";
-import { hmac } from "https://denopkg.com/chiefbiiko/hmac/mod.ts";*/
+/**
+ * @todo document this module
+ */
 import { Sha256, HmacSha256 } from "https://deno.land/std/hash/sha256.ts";
 import {
   encode,
