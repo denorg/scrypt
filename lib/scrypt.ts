@@ -1,6 +1,9 @@
 import { pbkdf2 } from "https://denopkg.com/chiefbiiko/pbkdf2/mod.ts";
+import { encode as base64encode } from "https://deno.land/std/encoding/base64.ts";
+import { encodeToString as hexencode } from "https://deno.land/std/encoding/hex.ts";
 const encoder: TextEncoder = new TextEncoder();
-export type encoding = ("utf-8" | "base64" | "hex" | null);
+const decoder: TextDecoder = new TextDecoder("utf-8");
+export type encoding = ("utf-8" | "base64" | "hex");
 /**
  * Scrypt implementation in TypeScript
  * @param {string|Uint8Array} password - string to hash
@@ -51,15 +54,25 @@ export async function scrypt(
     },
     new Uint8Array(p * blockSize),
   );
-  return pbkdf2(
+  const result: Uint8Array = pbkdf2(
     "sha256",
     password,
     expensiveSalt,
     undefined,
-    outputEncoding ? outputEncoding : undefined,
+    undefined,
     dklen,
     1,
-  );
+  ) as Uint8Array;
+  switch (outputEncoding) {
+    case "base64":
+      return base64encode(result);
+    case "hex":
+      return hexencode(result);
+    case "utf-8":
+      return decoder.decode(result);
+    default:
+      return result;
+  }
 }
 /**
  * Synchronous Scrypt implementation in TypeScript. 
@@ -139,7 +152,7 @@ export async function ROMix(
     j = (integrify(block) & (iterations - 1)) >>> 0;
     block = BlockMix(
       xor(block, V.subarray(j * blockSize, (j + 1) * blockSize)),
-      temp
+      temp,
     );
   }
   return block;
@@ -212,7 +225,7 @@ function R(data: number, shift: number): number {
  * @param {Uint32Array} x temporary array that's used to avoid creating new arraybuffers
  * @returns {Uint8Array}
  */
-export function salsa20_8(input: Uint8Array, x:Uint32Array): Uint8Array {
+export function salsa20_8(input: Uint8Array, x: Uint32Array): Uint8Array {
   //B32 is a Uint32 representation of the buffer provided on input
   const B32 = new Uint32Array(input.buffer);
   x.set(B32);
@@ -264,7 +277,7 @@ export function salsa20_8(input: Uint8Array, x:Uint32Array): Uint8Array {
  */
 function xor(a: Uint8Array, b: Uint8Array): Uint8Array {
   const buffer = new Uint8Array(a);
-  for (let i: number = a.length-1; i >= 0; i--) {
+  for (let i: number = a.length - 1; i >= 0; i--) {
     buffer[i] ^= b[i];
   }
   return buffer;

@@ -1,25 +1,26 @@
 import { hash, verify, genSalt } from "./mod.ts";
-
+/**
+ * @todo add a proper argument parser ([args](https://deno.land/x/args) perhaps?)
+ */
 if (import.meta.main) {
-  const command = Deno.args.shift();
+  let args = Deno.args.slice();
+  const command = args.shift();
   switch (command) {
     case "hash":
-      for (let arg of Deno.args) {
+      for (let arg of args) {
         console.log(await hash(arg));
       }
       break;
     case "verify":
-      console.log(await verify(Deno.args[0], Deno.args[1]));
+      console.log(await verify(args[0], args[1]));
       break;
     case "salt":
-      if (Deno.args.length) {
-        for (let arg of Deno.args) {
+      if (args.length) {
+        for (let arg of args) {
           console.log(await genSalt(parseInt(arg, 10)));
         }
-      }
-      else {
+      } else {
         console.log(await genSalt());
       }
   }
-  
 }

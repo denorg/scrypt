@@ -4,71 +4,98 @@
  * @version 1.0.0
  */
 
-import { scrypt } from "./scrypt.ts";
+import { scrypt } from "./lib/scrypt.ts";
+import {
+  formatPHC,
+  formatScrypt,
+  scryptFormat,
+  decomposeFormat,
+  detectFormat,
+  logN,
+  ScryptParameters,
+  to32bytes,
+} from "./lib/helpers.ts";
 
-export interface ScryptParameters {
-  N?: number,
-  r?: number,
-  p?: number,
-  salt?: string,
-  dklen?:number
-}
-export type scryptFormat = ("scrypt"|"raw")
 /**
  * Hash a password with scrypt. Outputs a string in rscrypt format.
  * @author oplik0
  * @param {string} password - Password that will be hashed
  * @param {ScryptParameters} [parameters] - Scrypt parameters (n, r and p) used for hashing. 
- * @param {number} [parameters.N=16384] - Work factor. Should be a power of 2. Defaults to 32768
+ * @param {number} [parameters.logN=14] - log2 of the work factor N. Must be an integer between 1 and 63. Defaults to 14 (N=16384) 
  * @param {number} [parameters.r=8] - Block size. Defaults to 16
  * @param {number} [parameters.p=1] - Parralelism factor. Defaults to 1
  * @param {string} [parameters.salt] - custom salt (by default it will be randomly generated)
- * @param {number} [parameters.dklen=32] - desired key length (in bytes)
+ * @param {number} [parameters.dklen=64] - desired key length (in bytes)
+ * @param {number} [parameters.N=16384] - full number of iterations if you don't like using logN (this overrides that setting). Must be a power of 2.
  * @param {scryptFormat} [format="scrypt"] - format of the result. Defaults to scrypt encrypted data format (https://github.com/Tarsnap/scrypt/blob/master/FORMAT) 
  * @returns {string} - Hash in scrypt format
- * @todo Add option to generate standard scrypt format
  */
-export async function hash(password: string, parameters?: ScryptParameters, format?: scryptFormat): Promise<string> {
+export async function hash(
+  password: string,
+  parameters?: ScryptParameters,
+  format?: scryptFormat,
+): Promise<string> {
   format = format ? format : "scrypt";
-  parameters = parameters || {};
-  const N = parameters.N || 16384;
-  const r = parameters.r || 8;
-  const p = parameters.p || 1;
-  const salt = parameters.salt ? parameters.salt : await genSalt();
-  const dklen = parameters.dklen ? parameters.dklen : 32;
-  let scryptResult: string  = (await scrypt(password, salt, N, r, p, dklen, "base64")) as string;
-  switch (format){
+  parameters = parameters ?? {};
+  const N = parameters.N ?? 2 ** (parameters.logN ?? 14);
+  const r = parameters.r ?? 8;
+  const p = parameters.p ?? 1;
+  const salt = parameters.salt
+    ? (format === "scrypt" ? to32bytes(parameters.salt) : parameters.salt)
+    : await genSalt(32, "Uint8Array");
+  const dklen = parameters.dklen
+    ? parameters.dklen
+    : format === "phc"
+    ? 32
+    : 64;
+  let scryptResult: string =
+    (await scrypt(password, salt, N, r, p, dklen, "base64")) as string;
+  switch (format) {
     case "raw":
       return scryptResult;
     case "scrypt":
-      return await formatScrypt(scryptResult, N, r, p, salt);
+      return await formatScrypt(scryptResult, Math.log2(N) as logN, r, p, salt);
+    case "phc":
+      return await formatPHC(scryptResult, Math.log2(N) as logN, r, p, salt);
+    default:
+      throw new Error("invalid output format");
   }
 }
 /**
  * Checks provided string against provided hash
  * @author oplik0
  * @param {string} password - string that will be checked against the hash 
- * @param {string} hash - hash in rscrypt format
+ * @param {string} testedHash - hash in a compatible format (scrypt or phc formats supported for now)
+ * @param {scryptFormat} [format] - format od the tested hash. Will be detected automatically if not provided
  * @returns {boolean} result of the check
- * @todo Handle more standard scrypt format instead of just rscrypt
  */
-export async function verify(password: string, hash: string): Promise<boolean> {
-  return false;
+export async function verify(
+  password: string,
+  testedHash: string,
+  format?: scryptFormat,
+): Promise<boolean> {
+  format = format ?? await detectFormat(testedHash);
+  const params: ScryptParameters = await decomposeFormat(testedHash, format);
+  const newHash = await hash(password, params, format);
+  return newHash === testedHash;
 }
 
 /**
  * generate random salt using Deno csprng (crypto.getRandomValues)
  * @author oplik0
- * @param {number} [length=32] - numebr of bytes to generate
- * @returns {string} Hex-encoded salt
+ * @param {number} [length=16] - numebr of bytes to generate
+ * @param {string} [outputType] - either string or Uint8Array
+ * @returns {string|Uint8Array} random salt 
  */
-export async function genSalt(length?: number): Promise<string> {
-  const array = new Uint8Array(length||32);
+export async function genSalt(
+  length?: number,
+  outputType?: ("string" | "Uint8Array"),
+): Promise<string | Uint8Array> {
+  const array = new Uint8Array(length || 32);
+  const decoder = new TextDecoder();
   const randomArray = crypto.getRandomValues(array);
-  const salt = [...randomArray].map(byte=>byte.toString(16).padStart(2, "0")).join("");
+  const salt = outputType === "Uint8Array"
+    ? randomArray
+    : decoder.decode(randomArray);
   return salt;
-}
-
-export async function formatScrypt(hash:string, N:number, r:number, p:number, salt:string): Promise<string> {
-  return ""
 }
