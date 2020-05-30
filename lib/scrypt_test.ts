@@ -168,7 +168,7 @@ Deno.test("scrypt #3", async (): Promise<void> => {
     expectedOutput,
   );
 });
-
+/*
 Deno.test("scrypt #4", async (): Promise<void> => {
   // deno-fmt-ignore
   const expectedOutput: Uint8Array = new Uint8Array([
@@ -191,3 +191,4 @@ Deno.test("scrypt #4", async (): Promise<void> => {
     expectedOutput,
   );
 });
+*/
