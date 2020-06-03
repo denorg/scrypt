@@ -18,7 +18,7 @@ Warning - this implementation is new and slow. For now it might be too slow to u
 Import the `hash` and/or `verify` functions and use them:
 
 ```ts
-import { hash, verify } from "https://raw.githubusercontent.com/denorg/scrypt/master/mod.ts";
+import { hash, verify } from "https://deno.land/x/scrypt/mod.ts";
 
 const hashResult = hash("password");
 const verifyResult = verify("password", hashResult);
@@ -38,14 +38,14 @@ dpx scrypt verify <password> <hash>
 Alternatively, you can use it directly from the CLI by using `deno run`:
 
 ```bash
-deno run https://raw.githubusercontent.com/denorg/scrypt/master/cli.ts hash <password>
-deno run https://raw.githubusercontent.com/denorg/scrypt/master/cli.ts verify <password> <hash>
+deno run https://deno.land/x/scrypt/cli.ts hash <password>
+deno run https://deno.land/x/scrypt/cli.ts verify <password> <hash>
 ```
 
 You can also install it globally using the following:
 
 ```bash
-deno install -n scrypt https://raw.githubusercontent.com/denorg/scrypt/master/cli.ts
+deno install -n scrypt https://deno.land/x/scrypt/cli.ts
 ```
 
 Then, the package is available to run:
