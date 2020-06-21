@@ -1,8 +1,7 @@
 # 🔑 scrypt
 
-This is a pure typescript (for now - in the future this module will try to switch to wasm) asynchronous implementation of scrypt key derivation function that doesn't require any privileges.
+This is a wasm-based (using rust-crypto) implementation of scrypt key derivation function that doesn't require any privileges.
 
-Warning - this implementation is new and slow. For now it might be too slow to use in production, so if you want security and can grant `--allow-read`, `--allow-write`, `--allow-net`, `--allow-plugin` and use `--unstable`, I'd recommend using [argon2](https://deno.land/x/argon2). If you don't need the best password security, [bcrypt](https://deno.land/x/bcrypt) should be faster and secure *enough*. There are performance improvements coming, but for now there are no good wasm scrypt implementations available, so even after this version is optimized it won't be nearly as fast as native implementation until one is created.
 
 [![Deno CI](https://github.com/denorg/scrypt/workflows/Deno%20CI/badge.svg)](https://github.com/denorg/scrypt/actions)
 [![GitHub](https://img.shields.io/github/license/denorg/scrypt)](https://github.com/denorg/scrypt/blob/master/LICENSE)
