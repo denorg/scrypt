@@ -3,7 +3,7 @@
  * @todo document the benchmarks better
  */
 import { runBenchmarks, bench } from "https://deno.land/std/testing/bench.ts";
-import { scrypt, scryptSync } from "./scrypt.ts";
+import { scrypt } from "./scrypt.ts";
 const extremeSalt: string =
   `IkjpewCbNm4A7cuY1VL9KC3y92blEthtLf9Cet6uEoTxz5cyF660da2zeci42fYwVCVwsKogETMCXupSZZAUh6a80ZnnBTk17B3UTCSVQPpYfL8GktJ2BDokE7ox2hV8OwwUT1hFvCuJqwHZpRvZw1RNCO6HfukPdgMHhq9rWLTXXUNwrIjlmkeydKGFJz2mS1xFcvLQtle4olJVK0SXXXYHAigBfpYxxSC2acvoxuacWcXhzSSRZAMysU2J7zDfXdxnYoqz50rvmvi36g7t2WDSAdzZ44JpxVcc3bYD7xYI3UgfVMPOfeblzwJi455QIurHzDuXEUNS0tZX1kWwZ0XcNSCwGzPs7WSVHxHc0KVUNhwSz16wDYFK4pYeA29ThXgFiFICSLVshiRrCfuzRthW7IZtRa9efcf4nFJsVBk51jpHY0b8CLhARrQU92mlBULwmJKe8DgST3Vn9rva98E9jk4y7NfSb4i9g74OjuFQ8yRO3BHksBZoVtBl4wUppM2hsLt72LZKA0ZsaWW7dG9a1bgWUkBBRG5OwzARenDqQIA2Gp5V4JsXuUUYNDylCelkLUVfS7hB1AZHtnIgwVqTaGDxl7nNZGKpAx6MrOd40laTUhrtZo4prwFZROHPNVJGQk2PQDgwqxX5SWoBTK8cCCzrbGBfHq9r8BwBvSVdeQ7bgjUW2j7NCapHHZ6filzxZaVsLsEITGZNcK0t5DdSnaDLRxyOn21ncKVIyZfOdlvpytvqpQaH5RWu4G50IPkEevue8KenXpGLP0pmEseBf6eX02rlN9arqZ4HJWmD7RbAChs7OJwfKlNIawb0V3G3N0eJeXiRsYOk10GIb91pyZRLSr2AJDtiWCcMuOWZfgLVHIrUVftfh9iXmRk2RAT1sigivbNtdqcF2cVvbTVMUCe7MIPRt4dGqwOQqdReGjPy9p1CNfKfJBIgW0xhYsOGMkcUqSurHxPl4wTOnMBx8vEZQsqJCZomENA1`;
 const extremePassword: string =
@@ -96,16 +96,6 @@ bench({
   async func(b): Promise<void> {
     b.start();
     await scrypt("password", "NaCl", 16384, 8, 1, 64);
-    b.stop();
-  },
-});
-
-bench({
-  name: "standard synchronous scrypt",
-  runs: 20,
-  func(b): void {
-    b.start();
-    scryptSync("password", "NaCl", 16384, 8, 1, 64);
     b.stop();
   },
 });
