@@ -19,8 +19,8 @@ Import the `hash` and/or `verify` functions and use them:
 ```ts
 import { hash, verify } from "https://deno.land/x/scrypt/mod.ts";
 
-const hashResult = hash("password");
-const verifyResult = verify("password", hashResult);
+const hashResult = await hash("password");
+const verifyResult = await verify("password", hashResult);
 ```
 
 ### CLI with [DPX](https://github.com/denorg/dpx)
