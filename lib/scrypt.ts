@@ -1,6 +1,6 @@
 import init, { source, scrypt as scryptWASM } from "./_wasm/wasm.js";
 import { encode as base64encode } from "https://deno.land/std/encoding/base64.ts";
-import { encodeToString as hexencode } from "https://deno.land/std/encoding/hex.ts";
+import { encode as hexencode } from "https://deno.land/std/encoding/hex.ts";
 const encoder: TextEncoder = new TextEncoder();
 const decoder: TextDecoder = new TextDecoder("utf-8");
 await init(source);
