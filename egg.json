@@ -1,0 +1,38 @@
+{
+  "$schema": "https://x.nest.land/eggs@0.3.8/src/schema.json",
+  "name": "scrypt",
+  "entry": "./mod.ts",
+  "description": "This is a wasm-based (using rust-crypto) implementation of scrypt key derivation function that doesn't require any privileges.",
+  "homepage": "https://github.com/denorg/scrypt",
+  "version": "2.1.0",
+  "releaseType": null,
+  "unstable": false,
+  "unlisted": false,
+  "files": [
+    "mod.ts",
+    "cli.ts",
+    "mod_test.ts",
+    "README.md",
+    "LICENSE",
+    "lib/*",
+    "lib/_wasm/src/*",
+    "lib/_wasm/Cargo.toml",
+    "lib/_wasm/LICENSE",
+    "lib/_wasm/README.md",
+    "lib/_wasm/build.ts",
+    "lib/_wasm/wasm.js"
+  ],
+  "ignore": [
+    ".gitignore",
+    ".vscode/**",
+    ".releaserc.json",
+    "_config.yml",
+    "lib/_wasm/out/**/*",
+    "lib/_wasm/target/**/*",
+    "lib/_wasm/cargo.lock"
+  ],
+  "checkFormat": false,
+  "checkTests": false,
+  "checkInstallation": false,
+  "check": true
+}

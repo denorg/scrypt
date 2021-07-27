@@ -1,0 +1,3 @@
++ extends .gitignore
+.vscode/**
+.github/**
