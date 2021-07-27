@@ -6,6 +6,9 @@
         "releaseRules": {
           "patch": {
             "include": [":bento:", ":recycle:"]
+          },
+          "minor": {
+            "include": [":pushpin:"]
           }
         }
       }
