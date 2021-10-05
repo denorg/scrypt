@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.103.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.110.0/testing/asserts.ts";
 import { scrypt } from "./scrypt.ts";
 
 Deno.test("scrypt #1", async (): Promise<void> => {

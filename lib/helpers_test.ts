@@ -1,6 +1,6 @@
 import {
   assertEquals,
-} from "https://deno.land/std@0.103.0/testing/asserts.ts";
+} from "https://deno.land/std@0.110.0/testing/asserts.ts";
 
 import { decomposeFormat } from "./helpers.ts";
 
