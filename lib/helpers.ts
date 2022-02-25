@@ -1,11 +1,11 @@
 /**
  * @todo document this module
  */
-import { Sha256, HmacSha256 } from "https://deno.land/std@0.110.0/hash/sha256.ts";
+import { Sha256, HmacSha256 } from "https://deno.land/std@0.127.0/hash/sha256.ts";
 import {
   encode,
   decode,
-} from "https://deno.land/std@0.110.0/encoding/base64.ts";
+} from "https://deno.land/std@0.127.0/encoding/base64.ts";
 // deno-fmt-ignore
 export type logN = 
   1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 |

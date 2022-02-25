@@ -1,7 +1,7 @@
 import {
     assertEquals,
     assert,
-} from "https://deno.land/std@0.110.0/testing/asserts.ts ";
+} from "https://deno.land/std@0.127.0/testing/asserts.ts ";
 import { hash, verify } from "./mod.ts";
 
 Deno.test("basic hashing - scrypt format", async (): Promise<void> => {
