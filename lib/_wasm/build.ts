@@ -1,6 +1,6 @@
 // Copyright 2018-2020 the Deno authors. All rights reserved. MIT license.
-// adopted from https://deno.land/std@0.103.0/hash/_wasm/build.ts
-import { encode as base64Encode } from "https://deno.land/std@0.110.0/encoding/base64.ts";
+// adopted from https://deno.land/std@0.127.0/hash/_wasm/build.ts
+import { encode as base64Encode } from "https://deno.land/std@0.127.0/encoding/base64.ts";
 
 // 1. build wasm
 async function buildWasm(path: string): Promise<void> {
@@ -34,7 +34,7 @@ async function generate(wasm: string, output: string): Promise<void> {
     const denoHashScript =
         "/* eslint-disable */\n" +
         "//deno-fmt-ignore-file\n" +
-        `import * as base64 from "https://deno.land/std@0.103.0/encoding/base64.ts";` +
+        `import * as base64 from "https://deno.land/std@0.127.0/encoding/base64.ts";` +
         `export const source = base64.decode("${wasm}");` +
         initScript;
 
