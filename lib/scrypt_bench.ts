@@ -73,12 +73,12 @@ Deno.bench("standard scrypt (extremely long password and salt)", { group: "scryp
   await scrypt(extremePassword, extremeSalt, 16384, 8, 1, 64);
 });
 
-Deno.bench("large n scrypt (8x standard)", { group: "large scrypt" }, async () => {
-  await scrypt("password", "salt", 131072, 8, 1, 64);
+Deno.bench("large n scrypt (4x standard)", { group: "large scrypt" }, async () => {
+  await scrypt("password", "salt", 65536, 8, 1, 64);
 });
-Deno.bench("large r scrypt (8x standard)", { group: "large scrypt" }, async () => {
-  await scrypt("password", "salt", 16384, 64, 1, 64);
+Deno.bench("large r scrypt (4x standard)", { group: "large scrypt" }, async () => {
+  await scrypt("password", "salt", 16384, 32, 1, 64);
 });
-Deno.bench("large p scrypt (16x standard)", { group: "large scrypt" }, async () => {
-  await scrypt("password", "salt", 16384, 8, 8, 64);
+Deno.bench("large p scrypt (4x standard)", { group: "large scrypt" }, async () => {
+  await scrypt("password", "salt", 16384, 8, 4, 64);
 });
