@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.143.0/testing/asserts.ts";
 
-import { decomposeFormat } from "./helpers.ts";
+import { decomposeFormat, ScryptParameters } from "./helpers.ts";
 
 Deno.test("decompose scrypt with format detection", async (): Promise<void> => {
   const params = await decomposeFormat(
@@ -45,6 +45,6 @@ Deno.test("decompose scrypt with format detection", async (): Promise<void> => {
       242,
       141,
     ]),
-  };
+  } as ScryptParameters;
   assertEquals(params, expectedParams);
 });

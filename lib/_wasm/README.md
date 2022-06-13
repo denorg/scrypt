@@ -6,9 +6,10 @@ Scrypt crypto library in Web Assembly
 
 - This project requires Rust 1.30.0 or later.
 - `wasm-pack` is required.
-    ```sh
-    cargo install wasm-pack
-    ```
+  ```sh
+  cargo install wasm-pack
+  ```
+
 ### Build
 
 ```sh
