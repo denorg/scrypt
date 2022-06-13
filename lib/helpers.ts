@@ -78,13 +78,13 @@ export interface ScryptParameters {
 }
 export type scryptFormat = "scrypt" | "phc" | "raw";
 
-export async function formatScrypt(
+export function formatScrypt(
   rawHash: string,
   logN: logN,
   r: number,
   p: number,
   salt: string | Uint8Array,
-): Promise<string> {
+): string {
   const encoder = new TextEncoder();
   const result = new Uint8Array(96);
   const dataview = new DataView(result.buffer);
@@ -106,9 +106,9 @@ export async function formatScrypt(
   // encode the result as a base64 string
   return encode(result);
 }
-async function decomposeScrypt(
+function decomposeScrypt(
   formattedHash: string,
-): Promise<ScryptParameters> {
+): ScryptParameters {
   const bytes: Uint8Array = new Uint8Array(decode(formattedHash));
   const dataview: DataView = new DataView(bytes.buffer);
   const parameters: ScryptParameters = {};
@@ -129,19 +129,19 @@ async function decomposeScrypt(
  * @param {number} p - parallelism factor
  * @param {string|Uint8Array} salt - salt used when hashing
  */
-export async function formatPHC(
+export function formatPHC(
   rawHash: string,
   logN: logN,
   r: number,
   p: number,
   salt: string | Uint8Array,
-): Promise<string> {
+): string {
   // convert salt to base64 without padding
   salt = encode(salt).replace(/=/g, "");
   rawHash = rawHash.replace(/=/g, "");
   return `\$scrypt\$ln=${logN},r=${r},p=${p}\$${salt}\$${rawHash}`;
 }
-async function decomposePHC(formattedHash: string): Promise<ScryptParameters> {
+function decomposePHC(formattedHash: string): ScryptParameters {
   const regex = /\$scrypt\$ln=(?<logN>\d+),r=(?<r>\d+),p=(?<p>\d+)\$(?<salt>[a-zA-Z0-9\-\_\+\/\=]*)\$/;
   const parameters: ScryptParameters = formattedHash.match(regex)
     ?.groups as ScryptParameters;
@@ -151,16 +151,16 @@ async function decomposePHC(formattedHash: string): Promise<ScryptParameters> {
   return parameters;
 }
 
-export async function decomposeFormat(
+export function decomposeFormat(
   formattedHash: string,
   format?: scryptFormat,
-): Promise<ScryptParameters> {
-  format = format ?? await detectFormat(formattedHash);
+): ScryptParameters {
+  format = format ?? detectFormat(formattedHash);
   switch (format) {
     case "scrypt":
-      return await decomposeScrypt(formattedHash);
+      return decomposeScrypt(formattedHash);
     case "phc":
-      return await decomposePHC(formattedHash);
+      return decomposePHC(formattedHash);
     case "raw":
       throw new Error("Unable to extract parameters from raw hash");
     default:
@@ -168,9 +168,9 @@ export async function decomposeFormat(
   }
 }
 
-export async function detectFormat(
+export function detectFormat(
   formattedHash: string,
-): Promise<scryptFormat> {
+): scryptFormat {
   switch (formattedHash.substring(0, 6)) {
     case "c2NyeX":
     case "scrypt":
