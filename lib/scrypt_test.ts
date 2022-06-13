@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.143.0/testing/asserts.ts";
 import { scrypt } from "./scrypt.ts";
 
-Deno.test("scrypt #1", async (): Promise<void> => {
+Deno.test("scrypt #1", (): void => {
   // deno-fmt-ignore
   const expectedOutput: Uint8Array = new Uint8Array([
     0x77,
@@ -70,12 +70,12 @@ Deno.test("scrypt #1", async (): Promise<void> => {
     0x06,
   ]);
   assertEquals(
-    (await scrypt("", "", 16, 1, 1, 64)) as Uint8Array,
+    (scrypt("", "", 16, 1, 1, 64)) as Uint8Array,
     expectedOutput,
   );
 }); // deno-fmt-ignore
 
-Deno.test("scrypt #2", async (): Promise<void> => {
+Deno.test("scrypt #2", (): void => {
   // deno-fmt-ignore
   const expectedOutput: Uint8Array = new Uint8Array([
     0xfd,
@@ -144,12 +144,12 @@ Deno.test("scrypt #2", async (): Promise<void> => {
     0x40,
   ]);
   assertEquals(
-    (await scrypt("password", "NaCl", 1024, 8, 16, 64)) as Uint8Array,
+    (scrypt("password", "NaCl", 1024, 8, 16, 64)) as Uint8Array,
     expectedOutput,
   );
 });
 
-Deno.test("scrypt #3", async (): Promise<void> => {
+Deno.test("scrypt #3", (): void => {
   // deno-fmt-ignore
   const expectedOutput: Uint8Array = new Uint8Array([
     0x70,
@@ -218,7 +218,7 @@ Deno.test("scrypt #3", async (): Promise<void> => {
     0x87,
   ]);
   assertEquals(
-    (await scrypt(
+    (scrypt(
       "pleaseletmein",
       "SodiumChloride",
       16384,

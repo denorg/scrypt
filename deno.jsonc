@@ -1,0 +1,8 @@
+{
+    "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+    "lint": {
+        "files": {
+            "exclude": ["lib/_wasm/wasm.js", "lib/_wasm/out/"]
+        }
+    }
+}

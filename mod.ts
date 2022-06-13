@@ -30,11 +30,11 @@ import { scrypt } from "./lib/scrypt.ts";
  * @param {scryptFormat} [format="scrypt"] - format of the result. Defaults to scrypt encrypted data format (https://github.com/Tarsnap/scrypt/blob/master/FORMAT)
  * @returns {string} - Hash in scrypt format
  */
-export async function hash(
+export function hash(
   password: string,
   parameters?: ScryptParameters,
   format?: scryptFormat,
-): Promise<string> {
+): string {
   format = format ? format : "scrypt";
   parameters = parameters ?? {};
   const N = parameters.N ?? 2 ** (parameters.logN ?? 14);
@@ -42,20 +42,20 @@ export async function hash(
   const p = parameters.p ?? 1;
   const salt = parameters.salt
     ? (format === "scrypt" ? to32bytes(parameters.salt) : parameters.salt)
-    : await genSalt(32, "Uint8Array");
+    : genSalt(32, "Uint8Array");
   const dklen = parameters.dklen
     ? parameters.dklen
     : format === "phc"
     ? 32
     : 64;
-  let scryptResult: string = (await scrypt(password, salt, N, r, p, dklen, "base64")) as string;
+  const scryptResult = scrypt(password, salt, N, r, p, dklen, "base64") as string;
   switch (format) {
     case "raw":
       return scryptResult;
     case "scrypt":
-      return await formatScrypt(scryptResult, Math.log2(N) as logN, r, p, salt);
+      return formatScrypt(scryptResult, Math.log2(N) as logN, r, p, salt);
     case "phc":
-      return await formatPHC(scryptResult, Math.log2(N) as logN, r, p, salt);
+      return formatPHC(scryptResult, Math.log2(N) as logN, r, p, salt);
     default:
       throw new Error("invalid output format");
   }
@@ -68,14 +68,14 @@ export async function hash(
  * @param {scryptFormat} [format] - format od the tested hash. Will be detected automatically if not provided
  * @returns {boolean} result of the check
  */
-export async function verify(
+export function verify(
   password: string,
   testedHash: string,
   format?: scryptFormat,
-): Promise<boolean> {
-  format = format ?? await detectFormat(testedHash);
-  const params: ScryptParameters = await decomposeFormat(testedHash, format);
-  const newHash = await hash(password, params, format);
+): boolean {
+  format = format ?? detectFormat(testedHash);
+  const params: ScryptParameters = decomposeFormat(testedHash, format);
+  const newHash = hash(password, params, format);
   return newHash === testedHash;
 }
 
@@ -86,10 +86,10 @@ export async function verify(
  * @param {string} [outputType] - either string or Uint8Array
  * @returns {string|Uint8Array} random salt
  */
-export async function genSalt(
+export function genSalt(
   length?: number,
   outputType?: "string" | "Uint8Array",
-): Promise<string | Uint8Array> {
+): string | Uint8Array {
   const array = new Uint8Array(length || 32);
   const decoder = new TextDecoder();
   const randomArray = crypto.getRandomValues(array);

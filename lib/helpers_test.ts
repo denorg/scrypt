@@ -2,8 +2,8 @@ import { assertEquals } from "https://deno.land/std@0.143.0/testing/asserts.ts";
 
 import { decomposeFormat, ScryptParameters } from "./helpers.ts";
 
-Deno.test("decompose scrypt with format detection", async (): Promise<void> => {
-  const params = await decomposeFormat(
+Deno.test("decompose scrypt with format detection", (): void => {
+  const params = decomposeFormat(
     "c2NyeXB0AAwAAAAIAAAAAcQ0zwp7QNLklxCn14vB75AYWDIrrT9I/7F9+lVGBfKN/1TH2hs/HboSy1ptzN0YzMmobAXD3CqJJLRLaTK7nOHbjNTWA20LuUmGwEoJtonW",
   );
   // deno-fmt-ignore

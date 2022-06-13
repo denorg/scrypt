@@ -14,9 +14,9 @@ export type encoding = "utf-8" | "base64" | "hex";
  * @param {number} p - parallelism factor
  * @param {number} [dklen] - length (in bytes) of the output. Defaults to 32.
  * @param {encoding} [outputEncoding] - encoding used, defaults to null (Uint8Array)
- * @returns {Promise<string|Uint8Array>} - the resulting hash encoded according to outputEncoding
+ * @returns {string|Uint8Array} - the resulting hash encoded according to outputEncoding
  */
-export async function scrypt(
+export function scrypt(
   password: string | Uint8Array,
   salt: string | Uint8Array,
   N: number,
@@ -24,7 +24,7 @@ export async function scrypt(
   p: number,
   dklen?: number,
   outputEncoding?: encoding,
-): Promise<Uint8Array | string> {
+): Uint8Array | string {
   dklen = dklen ?? 64;
   password = typeof password === "string" ? encoder.encode(password) : password;
   salt = typeof salt === "string" ? encoder.encode(salt) : salt;

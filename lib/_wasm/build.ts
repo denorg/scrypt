@@ -34,7 +34,7 @@ async function generate(wasm: string, output: string): Promise<void> {
   const denoHashScript = "/* eslint-disable */\n"
     + "//deno-fmt-ignore-file\n"
     + `import { decode } from "https://deno.land/x/base91/base91.ts";`
-    + `export const source = decode("${wasm.replaceAll('"', '\\"')}");`
+    + `export const source = decode("${wasm.replaceAll("\"", "\\\"")}");`
     + initScript;
 
   await Deno.writeFile("wasm.js", new TextEncoder().encode(denoHashScript));
