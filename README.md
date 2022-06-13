@@ -2,7 +2,6 @@
 
 This is a wasm-based (using rust-crypto) implementation of scrypt key derivation function that doesn't require any privileges.
 
-
 [![Deno CI](https://github.com/denorg/scrypt/workflows/Deno%20CI/badge.svg)](https://github.com/denorg/scrypt/actions)
 [![GitHub](https://img.shields.io/github/license/denorg/scrypt)](https://github.com/denorg/scrypt/blob/master/LICENSE)
 [![Contributors](https://img.shields.io/github/contributors/denorg/scrypt)](https://github.com/denorg/scrypt/graphs/contributors)
@@ -10,7 +9,6 @@ This is a wasm-based (using rust-crypto) implementation of scrypt key derivation
 [![Made by Denorg](https://img.shields.io/badge/made%20by-denorg-0082fb)](https://github.com/denorg)
 [![TypeScript](https://img.shields.io/badge/types-TypeScript-blue)](https://github.com/denorg/scrypt)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-
 
 ## ⭐ Getting started
 

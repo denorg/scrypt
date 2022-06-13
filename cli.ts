@@ -1,4 +1,4 @@
-import { hash, verify, genSalt } from "./mod.ts";
+import { genSalt, hash, verify } from "./mod.ts";
 /**
  * @todo add a proper argument parser ([args](https://deno.land/x/args) perhaps?)
  */

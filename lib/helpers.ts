@@ -1,17 +1,73 @@
 /**
  * @todo document this module
  */
-import { Sha256, HmacSha256 } from "https://deno.land/std@0.127.0/hash/sha256.ts";
-import {
-  encode,
-  decode,
-} from "https://deno.land/std@0.127.0/encoding/base64.ts";
+import { decode, encode } from "https://deno.land/std@0.143.0/encoding/base64.ts";
+import { HmacSha256, Sha256 } from "https://deno.land/std@0.143.0/hash/sha256.ts";
 // deno-fmt-ignore
-export type logN = 
-  1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 |
-  19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 |
-  34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 |
-  49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63;
+export type logN =
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18
+  | 19
+  | 20
+  | 21
+  | 22
+  | 23
+  | 24
+  | 25
+  | 26
+  | 27
+  | 28
+  | 29
+  | 30
+  | 31
+  | 32
+  | 33
+  | 34
+  | 35
+  | 36
+  | 37
+  | 38
+  | 39
+  | 40
+  | 41
+  | 42
+  | 43
+  | 44
+  | 45
+  | 46
+  | 47
+  | 48
+  | 49
+  | 50
+  | 51
+  | 52
+  | 53
+  | 54
+  | 55
+  | 56
+  | 57
+  | 58
+  | 59
+  | 60
+  | 61
+  | 62
+  | 63;
 export interface ScryptParameters {
   logN?: logN;
   r?: number;
@@ -20,7 +76,7 @@ export interface ScryptParameters {
   dklen?: number;
   N?: number;
 }
-export type scryptFormat = ("scrypt" | "phc" | "raw");
+export type scryptFormat = "scrypt" | "phc" | "raw";
 
 export async function formatScrypt(
   rawHash: string,
@@ -71,7 +127,7 @@ async function decomposeScrypt(
  * @param {logN} logN - log2 of cost factor
  * @param {number} r - block size
  * @param {number} p - parallelism factor
- * @param {string|Uint8Array} salt - salt used when hashing 
+ * @param {string|Uint8Array} salt - salt used when hashing
  */
 export async function formatPHC(
   rawHash: string,
@@ -86,8 +142,7 @@ export async function formatPHC(
   return `\$scrypt\$ln=${logN},r=${r},p=${p}\$${salt}\$${rawHash}`;
 }
 async function decomposePHC(formattedHash: string): Promise<ScryptParameters> {
-  const regex =
-    /\$scrypt\$ln=(?<logN>\d+),r=(?<r>\d+),p=(?<p>\d+)\$(?<salt>[a-zA-Z0-9\-\_\+\/\=]*)\$/;
+  const regex = /\$scrypt\$ln=(?<logN>\d+),r=(?<r>\d+),p=(?<p>\d+)\$(?<salt>[a-zA-Z0-9\-\_\+\/\=]*)\$/;
   const parameters: ScryptParameters = formattedHash.match(regex)
     ?.groups as ScryptParameters;
   parameters.salt = new Uint8Array(decode(parameters.salt as string));
