@@ -4,7 +4,7 @@
   "entry": "./mod.ts",
   "description": "This is a wasm-based (using rust-crypto) implementation of scrypt key derivation function that doesn't require any privileges.",
   "homepage": "https://github.com/denorg/scrypt",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "releaseType": null,
   "unstable": false,
   "unlisted": false,
