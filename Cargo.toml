@@ -1,3 +1,5 @@
 [workspace]
-members=["lib/_wasm"]
-default-members=["lib/_wasm"]
+members = ["lib/_wasm"]
+default-members = ["lib/_wasm"]
+[profile.release]
+opt-level = 3
