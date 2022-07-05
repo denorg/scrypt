@@ -4,18 +4,12 @@ Scrypt crypto library in Web Assembly
 
 # Prerequisities
 
-- This project requires Rust 1.30.0 or later.
-- `wasm-pack` is required.
-  ```sh
-  cargo install wasm-pack
-  ```
+- Rust toolchain needs to be installed (see https://rustup.rs/)
 
 ### Build
 
+from the main package folder run
+
 ```sh
-deno run --allow-read --allow-write --allow-run ./build.ts
+deno task wasmbuild
 ```
-
-### acknowledgement
-
-This implementation is a modified version of [this repository](https://github.com/MyEtherWallet/scrypt-wasm/)
