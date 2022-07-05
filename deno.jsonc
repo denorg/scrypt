@@ -4,5 +4,8 @@
         "files": {
             "exclude": ["lib/_wasm/wasm.js", "lib/_wasm/out/"]
         }
+    },
+    "tasks": {
+        "wasmbuild": "deno run -A https://deno.land/x/wasmbuild@0.8.3/main.ts --out ./lib/_wasm --project scrypt-wasm --sync" 
     }
 }

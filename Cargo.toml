@@ -1,0 +1,3 @@
+[workspace]
+members=["lib/_wasm"]
+default-members=["lib/_wasm"]
