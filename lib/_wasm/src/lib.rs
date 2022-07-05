@@ -26,7 +26,7 @@ pub fn scrypt_hash(password: &[u8], salt: &[u8], n: u32, r: u32, p: u32, dklen: 
 mod tests {
     use super::*;
     #[test]
-    fn basic_script() {
+    fn basic_scrypt() {
         let result = scrypt_hash("password".as_bytes(), "NaCl".as_bytes(), 1024, 8, 16, 64);
         assert_eq!(result.len(), 64);
 
