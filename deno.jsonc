@@ -6,6 +6,6 @@
         }
     },
     "tasks": {
-        "wasmbuild": "deno run --allow-env --allow-run --allow-read --allow-write --allow-net https://deno.land/x/wasmbuild@0.8.3/main.ts --out ./lib/_wasm --project scrypt-wasm --sync" 
+        "wasmbuild": "deno run --allow-env --allow-run --allow-read --allow-write --allow-net https://deno.land/x/wasmbuild@0.8.5/main.ts --out ./lib/_wasm --project scrypt-wasm --sync" 
     }
 }

@@ -1,16 +1,10 @@
 {
   "plugins": [
+    "@semantic-release/commit-analyzer",
     [
-      "semantic-release-gitmoji",
+      "@semantic-release/exec",
       {
-        "releaseRules": {
-          "patch": {
-            "include": [":bento:", ":recycle:"]
-          },
-          "minor": {
-            "include": [":pushpin:"]
-          }
-        }
+        "prepare": "sed -i \"s/scrypt@v[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]\\+/scrypt@v${nextRelease.version}/g\" README.md && sed -i \"s/\\\"version\\\": \\\"[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]\\\"/\\\"version\\\": \\\"${nextRelease.version}\\\"/ egg.json\""
       }
     ],
     "@semantic-release/github",
