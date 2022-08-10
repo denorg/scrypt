@@ -8,19 +8,23 @@ if (import.meta.main) {
   switch (command) {
     case "hash":
       for (const arg of args) {
-        console.log(hash(arg));
+        console.log(await hash(arg));
       }
       break;
     case "verify":
-      console.log(verify(args[0], args[1]));
+      console.log(await verify(args[0], args[1]));
       break;
     case "salt":
       if (args.length) {
         for (const arg of args) {
-          console.log(genSalt(parseInt(arg, 10)));
+          console.log(await genSalt(parseInt(arg, 10)));
         }
       } else {
-        console.log(genSalt());
+        console.log(await genSalt());
       }
+      break;
+    default: {
+	console.log(`usage: hash <password>, verify <password>, <hash>`)
+    }
   }
 }
