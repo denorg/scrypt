@@ -8,16 +8,16 @@ const extremeSalt =
 const extremePassword =
   `TFImeWrtF2kOIvDjG4P0ybmMrNOq0bQ0aERcC69iHflECWrwuSMO4JPD3Ng5HwNXZrCpHyEwviW8zly3WLsQ6zJ60lnfwhVRdkEQCsFiH4NvGl0tCAuty9Rruf47WHeE3GK7qAJwhcXHx3FCJgWN8KHdoy3vn2zUKJlhhjSFGANJdVYQGSaQTmtoJdhcemmYT5hprkALp7Q9vMwCk9hDvV5vB0evXfxqG0dFV3MPJmywwWAUJEi5MyM2Pio7fL50M5ohPWFmUllpa6G5pVBhi26GtOy6sM3GDGHmnohavtsMvTeRcMX1ds4HWA9U3vH7urQ3XGkCUzulB6WxuxHn8Z3fRz3BL6MZI0EReep2qUVaqJn8onzsI6da6pU6iDtRbufWxi0q8XN1S3BCtFGjzaTU12nvfg5js53PiSw1KUnZj2thKxWtnKcpwzbXdTuuZ9GVhZHIMcOXXrDR0rj539ZLAVyJmqwDOMjTsqPN7BY522PcJHoTElSRNRAsAsFx2m7h9brhcZXOgV1PZohJsdQS7RWhAl9EYBkgF8WCgGw9DXidVduIIHDlEd7mAVJfo9HYX85kFcwrLEpuPiFxfNhubeDpeBu2FAbAo6DNHFlqXUUnyKvMbzptcgisSr2V1pwykB6uLVrwx3AceRnyqg5flldmfsSKw0AFZ4PagGMJuFDMGrV29Vmqhv61SRL9in0ngZx0gJ2vKv26qS3jGN72UUsbkysuGNz6ul0D5jIapvIcCTncIiXSY24pPctxFsawcXvSNw4jEKccsHCTZF0gri6iFS7JqqQd87FNowbrug6sIWSwiWHYGN1VfSwuE5plQHVvNCHNZnMBBIoaMWh45lhtlfCWdUwVpjjK5dAUcOtKftJ2hcl4mIlxs7Fy8ASWhYvWAbpp3fRgmAeTRYAFEwMohN9b03iXyDSNFIeZtQoaL7HYFVWoXV4BfBVlR3CvNIwp6OPBAFFSDlSn9CZU06UziY1tSwqBzkCD`;
 
-Deno.bench("small scrypt", { group: "small scrypt", baseline: true }, async () => {
+Deno.bench("small scrypt", { group: "small scrypt", baseline: true }, () => {
   scrypt("password", "salt", 1024, 8, 1, 64);
 });
-Deno.bench("small scrypt (longer password)", { group: "small scrypt" }, async () => {
+Deno.bench("small scrypt (longer password)", { group: "small scrypt" }, () => {
   scrypt("long password to test that", "salt", 1024, 8, 1, 64);
 });
-Deno.bench("small scrypt (longer salt)", { group: "small scrypt" }, async () => {
+Deno.bench("small scrypt (longer salt)", { group: "small scrypt" }, () => {
   scrypt("password", "long salt to test that", 1024, 8, 1, 64);
 });
-Deno.bench("small scrypt (longer password and salt)", { group: "small scrypt" }, async () => {
+Deno.bench("small scrypt (longer password and salt)", { group: "small scrypt" }, () => {
   scrypt(
     "long password to test that",
     "long salt to test that",
@@ -28,29 +28,29 @@ Deno.bench("small scrypt (longer password and salt)", { group: "small scrypt" },
   );
 });
 
-Deno.bench("small scrypt (extremely long salt)", { group: "small scrypt" }, async () => {
+Deno.bench("small scrypt (extremely long salt)", { group: "small scrypt" }, () => {
   scrypt("password", extremeSalt, 1024, 8, 1, 64);
 });
 
-Deno.bench("small scrypt (extremely long password)", { group: "small scrypt" }, async () => {
+Deno.bench("small scrypt (extremely long password)", { group: "small scrypt" }, () => {
   scrypt(extremePassword, "NaCl", 1024, 8, 1, 64);
 });
 
-Deno.bench("small scrypt (extremely long password and salt)", { group: "small scrypt" }, async () => {
+Deno.bench("small scrypt (extremely long password and salt)", { group: "small scrypt" }, () => {
   scrypt(extremePassword, extremeSalt, 1024, 8, 1, 64);
 });
 
-Deno.bench("standard scrypt", { group: "scrypt", baseline: true }, async () => {
+Deno.bench("standard scrypt", { group: "scrypt", baseline: true }, () => {
   scrypt("password", "salt", 16384, 8, 1, 64);
 });
 
-Deno.bench("standard scrypt (longer password)", { group: "scrypt" }, async () => {
+Deno.bench("standard scrypt (longer password)", { group: "scrypt" }, () => {
   scrypt("long password to test that", "salt", 16384, 8, 1, 64);
 });
-Deno.bench("standard scrypt (longer salt)", { group: "scrypt" }, async () => {
+Deno.bench("standard scrypt (longer salt)", { group: "scrypt" }, () => {
   scrypt("password", "long salt to test that", 16384, 8, 1, 64);
 });
-Deno.bench("standard scrypt (longer password and salt)", { group: "scrypt" }, async () => {
+Deno.bench("standard scrypt (longer password and salt)", { group: "scrypt" }, () => {
   scrypt(
     "long password to test that",
     "long salt to test that",
@@ -61,24 +61,24 @@ Deno.bench("standard scrypt (longer password and salt)", { group: "scrypt" }, as
   );
 });
 
-Deno.bench("standard scrypt (extremely long salt)", { group: "scrypt" }, async () => {
+Deno.bench("standard scrypt (extremely long salt)", { group: "scrypt" }, () => {
   scrypt("password", extremeSalt, 16384, 8, 1, 64);
 });
 
-Deno.bench("standard scrypt (extremely long password)", { group: "scrypt" }, async () => {
+Deno.bench("standard scrypt (extremely long password)", { group: "scrypt" }, () => {
   scrypt(extremePassword, "NaCl", 16384, 8, 1, 64);
 });
 
-Deno.bench("standard scrypt (extremely long password and salt)", { group: "scrypt" }, async () => {
+Deno.bench("standard scrypt (extremely long password and salt)", { group: "scrypt" }, () => {
   scrypt(extremePassword, extremeSalt, 16384, 8, 1, 64);
 });
 
-Deno.bench("large n scrypt (4x standard)", { group: "large scrypt" }, async () => {
+Deno.bench("large n scrypt (4x standard)", { group: "large scrypt" }, () => {
   scrypt("password", "salt", 65536, 8, 1, 64);
 });
-Deno.bench("large r scrypt (4x standard)", { group: "large scrypt" }, async () => {
+Deno.bench("large r scrypt (4x standard)", { group: "large scrypt" }, () => {
   scrypt("password", "salt", 16384, 32, 1, 64);
 });
-Deno.bench("large p scrypt (4x standard)", { group: "large scrypt" }, async () => {
+Deno.bench("large p scrypt (4x standard)", { group: "large scrypt" }, () => {
   scrypt("password", "salt", 16384, 8, 4, 64);
 });
