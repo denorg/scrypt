@@ -24,6 +24,6 @@ if (import.meta.main) {
       }
       break;
     default:
-      console.log(`usage: hash <password>, verify <password>, <hash>`)
+      console.log(`usage: hash <password>, verify <password>, <hash>`);
   }
 }
