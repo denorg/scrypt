@@ -22,5 +22,8 @@ if (import.meta.main) {
       } else {
         console.log(genSalt());
       }
+      break;
+    default:
+      console.log(`usage: hash <password>, verify <password>, <hash>`)
   }
 }
