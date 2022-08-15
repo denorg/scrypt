@@ -1,5 +1,5 @@
-import { encode as base64encode } from "https://deno.land/std@0.143.0/encoding/base64.ts";
-import { encode as hexencode } from "https://deno.land/std@0.143.0/encoding/hex.ts";
+import { encode as base64encode } from "https://deno.land/std@0.152.0/encoding/base64.ts";
+import { encode as hexencode } from "https://deno.land/std@0.152.0/encoding/hex.ts";
 import { instantiate, scrypt_hash } from "./_wasm/scrypt_wasm.generated.js";
 const encoder: TextEncoder = new TextEncoder();
 const decoder: TextDecoder = new TextDecoder("utf-8");

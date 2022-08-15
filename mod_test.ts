@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "https://deno.land/std@0.143.0/testing/asserts.ts ";
+import { assert, assertEquals } from "https://deno.land/std@0.152.0/testing/asserts.ts ";
 import { hash, verify } from "./mod.ts";
 
 Deno.test("basic hashing - scrypt format", (): void => {
