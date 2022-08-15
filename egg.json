@@ -21,7 +21,6 @@
     "lib/_wasm/Cargo.toml",
     "lib/_wasm/LICENSE",
     "lib/_wasm/README.md",
-    "lib/_wasm/scrypt_wasm_bg.wasm",
     "lib/_wasm/scrypt_wasm.generated.js"
   ],
   "ignore": [

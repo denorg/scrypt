@@ -13,8 +13,7 @@
         "assets": [
           "README.md",
           "egg.json",
-          "lib/_wasm/scrypt_wasm.generated.js",
-          "lib/_wasm/scrypt_wasm_bg.wasm"
+          "lib/_wasm/scrypt_wasm.generated.js"
         ],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
