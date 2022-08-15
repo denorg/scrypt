@@ -1,8 +1,9 @@
 /**
  * @todo document this module
  */
-import { decode, encode } from "https://deno.land/std@0.143.0/encoding/base64.ts";
-import { HmacSha256, Sha256 } from "https://deno.land/std@0.143.0/hash/sha256.ts";
+import { crypto } from "https://deno.land/std@0.152.0/crypto/mod.ts";
+import { decode, encode } from "https://deno.land/std@0.152.0/encoding/base64.ts";
+import { HmacSha256 } from "https://deno.land/std@0.152.0/hash/sha256.ts";
 // dprint-ignore-next-line
 export type logN = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63;
 export interface ScryptParameters {
@@ -25,7 +26,6 @@ export function formatScrypt(
   const encoder = new TextEncoder();
   const result = new Uint8Array(96);
   const dataview = new DataView(result.buffer);
-  const sha256 = new Sha256();
   const hmac = new HmacSha256(new Uint8Array(decode(rawHash)).subarray(32));
   // first 6 bytes are the word "scrypt", 7th byte is 0
   result.set([115, 99, 114, 121, 112, 116, 0], 0);
@@ -33,8 +33,8 @@ export function formatScrypt(
   dataview.setUint32(8, r, false);
   dataview.setUint32(12, p, false);
   result.set(typeof salt === "string" ? encoder.encode(salt) : salt, 16);
-  sha256.update(result.subarray(0, 48));
-  result.set(new Uint8Array(sha256.arrayBuffer()), 48);
+  const hashedResult = crypto.subtle.digestSync("SHA-256", result.subarray(0, 48));
+  result.set(new Uint8Array(hashedResult), 48);
   hmac.update(result.subarray(0, 64));
   result.set(
     hmac.array(),
