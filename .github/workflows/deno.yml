@@ -28,6 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    continue-on-error: true
+    timeout-minutes: 25
     env:
       GH_ACTIONS: true
       DENO_BUILD_MODE: release
