@@ -1,19 +1,61 @@
 import { assertEquals } from "../deps.ts";
+import { to32bytes } from "./helpers.ts";
 
-import { decomposeFormat, ScryptParameters } from "./helpers.ts";
+Deno.test("to32bytes long string", (): void => {
+  const input = "just a somewhat longer string that's more than 32 bytes long";
+  const expected = new Uint8Array([
+    106,
+    117,
+    115,
+    116,
+    32,
+    97,
+    32,
+    115,
+    111,
+    109,
+    101,
+    119,
+    104,
+    97,
+    116,
+    32,
+    108,
+    111,
+    110,
+    103,
+    101,
+    114,
+    32,
+    115,
+    116,
+    114,
+    105,
+    110,
+    103,
+    32,
+    116,
+    104,
+  ]);
+  const actual = to32bytes(input);
+  assertEquals(actual, expected);
+});
 
-Deno.test("decompose scrypt with format detection", (): void => {
-  const params = decomposeFormat(
-    "c2NyeXB0AAwAAAAIAAAAAcQ0zwp7QNLklxCn14vB75AYWDIrrT9I/7F9+lVGBfKN/1TH2hs/HboSy1ptzN0YzMmobAXD3CqJJLRLaTK7nOHbjNTWA20LuUmGwEoJtonW",
-  );
-
-  const expectedParams = {
-    logN: 12,
-    r: 8,
-    p: 1,
-    // dprint-ignore-next-line
-    // deno-fmt-ignore
-    salt: new Uint8Array([196, 52, 207, 10, 123, 64, 210, 228, 151, 16, 167, 215, 139, 193, 239, 144, 24, 88, 50, 43, 173, 63, 72, 255, 177, 125, 250, 85, 70, 5, 242, 141]),
-  } as ScryptParameters;
-  assertEquals(params, expectedParams);
+Deno.test("to32bytes short string", (): void => {
+  const input = "hello world";
+  const expected = new Uint8Array([
+    104,
+    101,
+    108,
+    108,
+    111,
+    32,
+    119,
+    111,
+    114,
+    108,
+    100,
+  ]);
+  const actual = to32bytes(input);
+  assertEquals(actual, expected);
 });
