@@ -15,6 +15,9 @@ import {
   to32bytes,
 } from "./lib/helpers.ts";
 import { scrypt } from "./lib/scrypt.ts";
+import { timingSafeEqual } from "std/crypto/timing_safe_equal.ts";
+
+const encoder = new TextEncoder();
 
 /**
  * Hash a password with scrypt. Outputs a string in rscrypt format.
@@ -37,7 +40,7 @@ export function hash(
 ): string {
   format = format ? format : "scrypt";
   parameters = parameters ?? {};
-  const N = parameters.N ?? 2 ** (parameters.logN ?? 14);
+  const N = parameters.N ?? 2 ** (parameters.logN ?? 17);
   const r = parameters.r ?? 8;
   const p = parameters.p ?? 1;
   const salt = parameters.salt
@@ -48,7 +51,15 @@ export function hash(
     : format === "phc"
     ? 32
     : 64;
-  const scryptResult = scrypt(password, salt, N, r, p, dklen, "base64") as string;
+  const scryptResult = scrypt(
+    password,
+    salt,
+    N,
+    r,
+    p,
+    dklen,
+    "base64",
+  ) as string;
   switch (format) {
     case "raw":
       return scryptResult;
@@ -76,7 +87,7 @@ export function verify(
   format = format ?? detectFormat(testedHash);
   const params: ScryptParameters = decomposeFormat(testedHash, format);
   const newHash = hash(password, params, format);
-  return newHash === testedHash;
+  return timingSafeEqual(encoder.encode(newHash), encoder.encode(testedHash));
 }
 
 /**
