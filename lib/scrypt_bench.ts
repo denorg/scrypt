@@ -19,7 +19,14 @@ Deno.bench("small scrypt", { group: "small scrypt", baseline: true }, () => {
 Deno.bench("small scrypt - last version (longer password and salt)", {
   group: "small scrypt (longer password and salt)",
 }, () => {
-  scryptOld("long password to test that", "long salt to test that", 1024, 8, 1, 64);
+  scryptOld(
+    "long password to test that",
+    "long salt to test that",
+    1024,
+    8,
+    1,
+    64,
+  );
 });
 Deno.bench("small scrypt (longer password and salt)", {
   group: "small scrypt (longer password and salt)",
@@ -42,6 +49,7 @@ Deno.bench("small scrypt - last version (extremely long password and salt)", {
 });
 Deno.bench("small scrypt (extremely long password and salt)", {
   group: "small scrypt (extremely long password and salt)",
+  baseline: true,
 }, () => {
   scrypt(extremePassword, extremeSalt, 1024, 8, 1, 64);
 });
@@ -82,11 +90,15 @@ Deno.bench(
   },
 );
 
-Deno.bench("standard scrypt - last version (extremely long password and salt)", {
-  group: "scrypt (extremely long password and salt)",
-}, () => {
-  scryptOld(extremePassword, extremeSalt, 16384, 8, 1, 64);
-});
+Deno.bench(
+  "standard scrypt - last version (extremely long password and salt)",
+  {
+    group: "scrypt (extremely long password and salt)",
+  },
+  () => {
+    scryptOld(extremePassword, extremeSalt, 16384, 8, 1, 64);
+  },
+);
 Deno.bench("standard scrypt (extremely long password and salt)", {
   group: "scrypt (extremely long password and salt)",
   baseline: true,
@@ -94,23 +106,38 @@ Deno.bench("standard scrypt (extremely long password and salt)", {
   scrypt(extremePassword, extremeSalt, 16384, 8, 1, 64);
 });
 
-Deno.bench("large n scrypt - last version (4x standard)", { group: "large n scrypt" }, () => {
+Deno.bench("large n scrypt - last version (4x standard)", {
+  group: "large n scrypt",
+}, () => {
   scryptOld("password", "salt", 65536, 8, 1, 64);
 });
-Deno.bench("large n scrypt (4x standard)", { group: "large n scrypt", baseline: true }, () => {
+Deno.bench("large n scrypt (4x standard)", {
+  group: "large n scrypt",
+  baseline: true,
+}, () => {
   scrypt("password", "salt", 65536, 8, 1, 64);
 });
 
-Deno.bench("large r scrypt - last version (4x standard)", { group: "large r scrypt" }, () => {
+Deno.bench("large r scrypt - last version (4x standard)", {
+  group: "large r scrypt",
+}, () => {
   scryptOld("password", "salt", 16384, 32, 1, 64);
 });
-Deno.bench("large r scrypt (4x standard)", { group: "large r scrypt", baseline: true }, () => {
+Deno.bench("large r scrypt (4x standard)", {
+  group: "large r scrypt",
+  baseline: true,
+}, () => {
   scrypt("password", "salt", 16384, 32, 1, 64);
 });
 
-Deno.bench("large p scrypt - last version (4x standard)", { group: "large p scrypt" }, () => {
+Deno.bench("large p scrypt - last version (4x standard)", {
+  group: "large p scrypt",
+}, () => {
   scryptOld("password", "salt", 16384, 8, 4, 64);
 });
-Deno.bench("large p scrypt (4x standard)", { group: "large p scrypt", baseline: true }, () => {
+Deno.bench("large p scrypt (4x standard)", {
+  group: "large p scrypt",
+  baseline: true,
+}, () => {
   scrypt("password", "salt", 16384, 8, 4, 64);
 });

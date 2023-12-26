@@ -1,5 +1,5 @@
-import { encode as base64encode } from "https://deno.land/std@0.152.0/encoding/base64.ts";
-import { encode as hexencode } from "https://deno.land/std@0.152.0/encoding/hex.ts";
+import { encodeBase64 } from "std/encoding/base64.ts";
+import { encodeHex } from "std/encoding/hex.ts";
 import { instantiate, scrypt_hash } from "./_wasm/scrypt_wasm.generated.js";
 const encoder: TextEncoder = new TextEncoder();
 const decoder: TextDecoder = new TextDecoder("utf-8");
@@ -31,9 +31,9 @@ export function scrypt(
   const result: Uint8Array = scrypt_hash(password, salt, N, r, p, dklen);
   switch (outputEncoding) {
     case "base64":
-      return base64encode(result);
+      return encodeBase64(result);
     case "hex":
-      return hexencode(result);
+      return encodeHex(result);
     case "utf-8":
       return decoder.decode(result);
     default:

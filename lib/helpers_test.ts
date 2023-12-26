@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.152.0/testing/asserts.ts";
+import { assertEquals } from "std/assert/mod.ts";
 
 import { decomposeFormat, ScryptParameters } from "./helpers.ts";
 
@@ -12,6 +12,7 @@ Deno.test("decompose scrypt with format detection", (): void => {
     r: 8,
     p: 1,
     // dprint-ignore-next-line
+    // deno-fmt-ignore
     salt: new Uint8Array([196, 52, 207, 10, 123, 64, 210, 228, 151, 16, 167, 215, 139, 193, 239, 144, 24, 88, 50, 43, 173, 63, 72, 255, 177, 125, 250, 85, 70, 5, 242, 141]),
   } as ScryptParameters;
   assertEquals(params, expectedParams);
