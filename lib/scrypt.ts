@@ -1,9 +1,9 @@
 import { encodeBase64 } from "../deps.ts";
 import { encodeHex } from "../deps.ts";
-import { instantiate, scrypt_hash } from "./_wasm/scrypt_wasm.generated.js";
+import { instantiate } from "./_wasm/scrypt_wasm.generated.js";
 const encoder: TextEncoder = new TextEncoder();
 const decoder: TextDecoder = new TextDecoder("utf-8");
-instantiate();
+const { scrypt_hash } = instantiate();
 export type encoding = "utf-8" | "base64" | "hex";
 /**
  * Scrypt implementation using web assembly
