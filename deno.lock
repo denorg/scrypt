@@ -1,6 +1,7 @@
 {
   "version": "3",
   "remote": {
+    "https://deno.land/std@0.160.0/hash/sha256.ts": "aa9479c260f41b72c639f36c3e4bc9319940b5d2e52fe793ebe3dc646d12832f",
     "https://deno.land/std@0.210.0/assert/_constants.ts": "8a9da298c26750b28b326b297316cdde860bc237533b07e1337c021379e6b2a9",
     "https://deno.land/std@0.210.0/assert/_diff.ts": "2c9371f17cf08cbb843c924bc31ca77af422ec4fe162f73d42c651d547573fa8",
     "https://deno.land/std@0.210.0/assert/_format.ts": "335ce8e15c65b679ad142dbc9e5e97e5d58602c39dd3c9175cef6c85fe22d6d5",
@@ -46,6 +47,8 @@
     "https://deno.land/std@0.210.0/encoding/base64.ts": "cdc3810253462ccc7b2818429c1613e581f7999ff1ff5b0a6854e0cc38caffeb",
     "https://deno.land/std@0.210.0/encoding/base64url.ts": "078890d9796c062cad0f9486acbb9db03f8619e9718a5a8f74200a409bbd066f",
     "https://deno.land/std@0.210.0/encoding/hex.ts": "a91232cc15aeb458289d22ed443dc2ba2e6f98080a11db3dfc96a0063c238cbe",
-    "https://deno.land/std@0.210.0/fmt/colors.ts": "2685c524bef9b16b3059a417daf6860c754eb755e19e812762ef5dff62f24481"
+    "https://deno.land/std@0.210.0/fmt/colors.ts": "2685c524bef9b16b3059a417daf6860c754eb755e19e812762ef5dff62f24481",
+    "https://deno.land/x/scrypt@v4.3.0/lib/_wasm/scrypt_wasm.generated.js": "160ed57e880cb44f8909632f1277dc7d7d1056be039a0abcc9bcbe2115871756",
+    "https://deno.land/x/scrypt@v4.3.0/lib/scrypt.ts": "685053668dc8f09c30308b9a32b116d6b706afde42749238cdbb67e5d7073f6a"
   }
 }
