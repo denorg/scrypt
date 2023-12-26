@@ -1,10 +1,10 @@
 {
-  "$schema": "https://x.nest.land/eggs@4.2.1/src/schema.json",
+  "$schema": "https://x.nest.land/eggs@4.3.0/src/schema.json",
   "name": "scrypt",
   "entry": "./mod.ts",
   "description": "This is a wasm-based (using rust-crypto) implementation of scrypt key derivation function that doesn't require any privileges.",
   "homepage": "https://github.com/denorg/scrypt",
-  "version": "4.2.1",
+  "version": "4.3.0",
   "releaseType": null,
   "unstable": false,
   "unlisted": false,
