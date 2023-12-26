@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "https://deno.land/std@0.152.0/testing/asserts.ts ";
+import { assert, assertEquals } from "std/assert/mod.ts";
 import { hash, verify } from "./mod.ts";
 
 Deno.test("basic hashing - scrypt format", (): void => {
@@ -11,7 +11,11 @@ Deno.test("basic hashing - PHC format", (): void => {
 });
 
 Deno.test("basic hashing raw", (): void => {
-  const hashedPassword = hash("test-password", { salt: "test" }, "raw");
+  const hashedPassword = hash(
+    "test-password",
+    { salt: "test", logN: 14 }, // the expected hash was generated using the older default parameters, hence logN=14 instead of logN=17
+    "raw",
+  );
   assertEquals(
     hashedPassword,
     "zu8gd0RTeX6r0dbNzBv5ZzXOAQo0UnFUw49uRXrPwAlDocpJSA43WEgAcKNlsBhLyA+zVDluz/0GFa1ShAcr6g==",
