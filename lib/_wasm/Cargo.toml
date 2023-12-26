@@ -11,9 +11,7 @@ crate-type = ["cdylib", "rlib"]
 getrandom = { version = "0.2", features = ["js"] }
 scrypt = { version = "0.11", default-features = false }
 talc = { version = "3", default-features = false, features = ["lock_api"] }
-wasm-bindgen = { version = "=0.2.89", default-features = false, features = [
-    "spans",
-] }
+wasm-bindgen = { version = "=0.2.89", default-features = false, features = ["spans"] }
 
 [dev-dependencies]
 wasm-bindgen-test = "=0.3.39"

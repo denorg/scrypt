@@ -101,7 +101,8 @@ export function formatPHC(
   return `\$scrypt\$ln=${logN},r=${r},p=${p}\$${salt}\$${rawHash}`;
 }
 function decomposePHC(formattedHash: string): ScryptParameters {
-  const regex = /\$scrypt\$ln=(?<logN>\d+),r=(?<r>\d+),p=(?<p>\d+)\$(?<salt>[a-zA-Z0-9\-\_\+\/\=]*)\$/;
+  const regex =
+    /\$scrypt\$ln=(?<logN>\d+),r=(?<r>\d+),p=(?<p>\d+)\$(?<salt>[a-zA-Z0-9\-\_\+\/\=]*)\$/;
   const parameters: ScryptParameters = formattedHash.match(regex)
     ?.groups as ScryptParameters;
   parameters.salt = new Uint8Array(decodeBase64(parameters.salt as string));

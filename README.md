@@ -1,6 +1,7 @@
 # 🔑 scrypt
 
-This is a wasm-based (using rust-crypto) implementation of scrypt key derivation function that doesn't require any privileges.
+This is a wasm-based (using rust-crypto) implementation of scrypt key derivation
+function that doesn't require any privileges.
 
 [![Deno CI](https://github.com/denorg/scrypt/workflows/Deno%20CI/badge.svg)](https://github.com/denorg/scrypt/actions)
 [![GitHub](https://img.shields.io/github/license/denorg/scrypt)](https://github.com/denorg/scrypt/blob/master/LICENSE)
@@ -23,7 +24,8 @@ const verifyResult = verify("password", hashResult);
 
 ### CLI with [DPX](https://github.com/denorg/dpx)
 
-After [installing DPX](https://github.com/denorg/dpx), you can directly use the CLI using the `dpx` command:
+After [installing DPX](https://github.com/denorg/dpx), you can directly use the
+CLI using the `dpx` command:
 
 ```bash
 dpx scrypt hash <password>

@@ -49,6 +49,9 @@
     "https://deno.land/std@0.210.0/encoding/hex.ts": "a91232cc15aeb458289d22ed443dc2ba2e6f98080a11db3dfc96a0063c238cbe",
     "https://deno.land/std@0.210.0/fmt/colors.ts": "2685c524bef9b16b3059a417daf6860c754eb755e19e812762ef5dff62f24481",
     "https://deno.land/x/scrypt@v4.3.0/lib/_wasm/scrypt_wasm.generated.js": "160ed57e880cb44f8909632f1277dc7d7d1056be039a0abcc9bcbe2115871756",
-    "https://deno.land/x/scrypt@v4.3.0/lib/scrypt.ts": "685053668dc8f09c30308b9a32b116d6b706afde42749238cdbb67e5d7073f6a"
+    "https://deno.land/x/scrypt@v4.3.0/lib/scrypt.ts": "685053668dc8f09c30308b9a32b116d6b706afde42749238cdbb67e5d7073f6a",
+    "https://deno.land/x/scrypt@v4.3.1/deps.ts": "629bb40670debea7a17f69f29235cd62c486286f735f55c5675a1246b903eac7",
+    "https://deno.land/x/scrypt@v4.3.1/lib/_wasm/scrypt_wasm.generated.js": "160ed57e880cb44f8909632f1277dc7d7d1056be039a0abcc9bcbe2115871756",
+    "https://deno.land/x/scrypt@v4.3.1/lib/scrypt.ts": "12e0715d4cdc3d4f7464bf5f7353497704c9169b1236a6d27a209b9e724c8a81"
   }
 }

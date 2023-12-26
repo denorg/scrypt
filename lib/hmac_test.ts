@@ -1,6 +1,6 @@
-import { hmacSHA256 } from "./hmac.ts";
 import { decodeHex } from "../deps.ts";
 import { assertEquals } from "../deps.ts";
+import { hmacSHA256 } from "./hmac.ts";
 
 // test data from RFC 4231
 
