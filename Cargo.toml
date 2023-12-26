@@ -1,5 +1,8 @@
 [workspace]
 members = ["lib/_wasm"]
 default-members = ["lib/_wasm"]
+resolver = "2"
 [profile.release]
 opt-level = 3
+strip = true
+lto = true
