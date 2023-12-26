@@ -1,8 +1,8 @@
 /**
  * @todo document this module
  */
-import { crypto } from "std/crypto/mod.ts";
-import { decodeBase64, encodeBase64 } from "std/encoding/base64.ts";
+import { crypto } from "../deps.ts";
+import { decodeBase64, encodeBase64 } from "../deps.ts";
 import { hmacSHA256 } from "./hmac.ts";
 // dprint-ignore-next-line
 // deno-fmt-ignore

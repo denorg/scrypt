@@ -15,7 +15,7 @@ import {
   to32bytes,
 } from "./lib/helpers.ts";
 import { scrypt } from "./lib/scrypt.ts";
-import { timingSafeEqual } from "std/crypto/timing_safe_equal.ts";
+import { timingSafeEqual } from "./deps.ts";
 
 const encoder = new TextEncoder();
 

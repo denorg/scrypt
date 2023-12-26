@@ -1,5 +1,5 @@
-import { encodeBase64 } from "std/encoding/base64.ts";
-import { encodeHex } from "std/encoding/hex.ts";
+import { encodeBase64 } from "../deps.ts";
+import { encodeHex } from "../deps.ts";
 import { instantiate, scrypt_hash } from "./_wasm/scrypt_wasm.generated.js";
 const encoder: TextEncoder = new TextEncoder();
 const decoder: TextDecoder = new TextDecoder("utf-8");

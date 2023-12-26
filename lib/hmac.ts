@@ -1,7 +1,7 @@
 /**
  * A very primitive crypto.subtle.digestSync-based HMAC-SHA256 synchronous implementation.
  */
-import { crypto } from "std/crypto/mod.ts";
+import { crypto } from "../deps.ts";
 
 function mergeArrays(a: Uint8Array, b: Uint8Array): Uint8Array {
   const result = new Uint8Array(a.length + b.length);

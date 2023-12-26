@@ -1,6 +1,6 @@
 import { hmacSHA256 } from "./hmac.ts";
-import { decodeHex } from "std/encoding/hex.ts";
-import { assertEquals } from "std/assert/assert_equals.ts";
+import { decodeHex } from "../deps.ts";
+import { assertEquals } from "../deps.ts";
 
 const encoder = new TextEncoder();
 

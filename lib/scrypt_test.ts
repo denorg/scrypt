@@ -1,4 +1,4 @@
-import { assertEquals } from "std/assert/mod.ts";
+import { assertEquals } from "../deps.ts";
 import { scrypt } from "./scrypt.ts";
 
 Deno.test("scrypt #1", (): void => {

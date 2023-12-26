@@ -1,4 +1,4 @@
-import { decodeHex } from "std/encoding/hex.ts";
+import { decodeHex } from "../deps.ts";
 import { hmacSHA256 } from "./hmac.ts";
 import { HmacSha256 } from "https://deno.land/std@0.160.0/hash/sha256.ts";
 

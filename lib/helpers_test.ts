@@ -1,4 +1,4 @@
-import { assertEquals } from "std/assert/mod.ts";
+import { assertEquals } from "../deps.ts";
 
 import { decomposeFormat, ScryptParameters } from "./helpers.ts";
 
