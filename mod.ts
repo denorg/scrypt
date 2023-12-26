@@ -1,9 +1,10 @@
 /**
  * @module scrypt
  * @author oplik0
- * @version 1.0.0
+ * @version 4.3.1
  */
 
+import { timingSafeEqual } from "./deps.ts";
 import {
   decomposeFormat,
   detectFormat,
@@ -12,10 +13,9 @@ import {
   logN,
   scryptFormat,
   ScryptParameters,
-  to32bytes,
-} from "./lib/helpers.ts";
+} from "./lib/format.ts";
+import { to32bytes } from "./lib/helpers.ts";
 import { scrypt } from "./lib/scrypt.ts";
-import { timingSafeEqual } from "./deps.ts";
 
 const encoder = new TextEncoder();
 
