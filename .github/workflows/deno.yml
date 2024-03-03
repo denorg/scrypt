@@ -92,5 +92,5 @@ jobs:
           eggs publish --yes --no-check
       - name: Publish to JSR
         run: |
-          sed  -i "s/from ".*"; \/\/jsr: //" deps.ts # remove https imports
+          sed  -i "s/".*"; \/\/jsr: //" deps.ts # remove https imports
           deno publish
