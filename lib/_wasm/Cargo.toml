@@ -1,6 +1,6 @@
 [package]
 name = "scrypt-wasm"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["oplik0"]
 edition = "2021"
 
@@ -18,6 +18,8 @@ wasm-bindgen-test = "=0.3.41"
 
 [profile.release]
 opt-level = 3
+strip = true
+lto = true
 
 [features]
 default = []
