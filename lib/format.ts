@@ -1,4 +1,5 @@
 /**
+ * @module scrypt/format
  * @author oplik0
  * @description scrypt output formatting related functions
  */
@@ -8,14 +9,41 @@ import { hmacSHA256 } from "./hmac.ts";
 // dprint-ignore-next-line
 // deno-fmt-ignore
 export type logN = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63;
+/**
+ * Available parameters primarily influencing security (and runtime) of scrypt
+ */
 export interface ScryptParameters {
+  /**
+   * log2 of the work factor N. Must be an integer between 1 and 63. Defaults to 17 (N=131072)
+   */
   logN?: logN;
+  /**
+   * Block size. Defaults to 8
+   */
   r?: number;
+  /**
+   * Parralelism factor. Defaults to 1
+   */
   p?: number;
+  /**
+   * custom salt (by default it will be randomly generated)
+   */
   salt?: string | Uint8Array;
+  /**
+   * desired key length (in bytes).
+   */
   dklen?: number;
+  /**
+   * full number of iterations, if you prefer it over logN (this overrides that setting). Must be a power of 2.
+   */
   N?: number;
 }
+/**
+ * Available formats for scrypt hashes
+ * scrypt - original scrypt format, see (https://github.com/Tarsnap/scrypt/blob/master/FORMAT). This is the default format.
+ * phc - PHC format, a stricter subset of Modular Crypt Format created for argon2.
+ * raw - raw hash, without any additional data. Can't be used to verify the hash without also passing the parameters used to generate it.
+ */
 export type scryptFormat = "scrypt" | "phc" | "raw";
 /**
  * Format hash using HMAC-based format from node-scrypt

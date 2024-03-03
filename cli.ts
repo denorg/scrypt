@@ -1,5 +1,5 @@
 /**
- * @module scrypt-cli
+ * @module scrypt/cli
  * @author oplik0
  * This is a simple CLI for the scrypt module. It doesn't export anything, but can be used as a standalone script.
  */

@@ -1,7 +1,7 @@
 /**
  * @module scrypt
  * @author oplik0
- * @version 4.3.1
+ * @version 4.3.3
  */
 
 import { timingSafeEqual } from "./deps.ts";
@@ -109,6 +109,3 @@ export function genSalt(
     : decoder.decode(randomArray);
   return salt;
 }
-
-// re-export types
-export type { logN, scryptFormat, ScryptParameters } from "./lib/format.ts";

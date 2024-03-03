@@ -1,4 +1,5 @@
 /**
+ * @module scrypt/hmac
  * @author oplik0
  * @description A very primitive crypto.subtle.digestSync-based HMAC-SHA256 synchronous implementation.
  */
