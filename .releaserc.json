@@ -4,7 +4,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "sed -i \"s/scrypt@v[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]\\+/scrypt@v${nextRelease.version}/g\" README.md && sed -i \"s/\\\"version\\\": \\\"[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]\\\"/\\\"version\\\": \\\"${nextRelease.version}\\\"/\" deno.jsonc && sed -i \"s/[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]/${nextRelease.version}/\" egg.json && sed -i \"s/v[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]/v${nextRelease.version}/\" lib/scrypt_bench.ts && sed -i \"s/@version [[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]/@version ${nextRelease.version}/\" mod.ts"
+        "prepareCmd": "sed -i \"s/scrypt@[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]\\+/scrypt@${nextRelease.version}/g\" README.md && sed -i \"s/\\\"version\\\": \\\"[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]\\\"/\\\"version\\\": \\\"${nextRelease.version}\\\"/\" deno.jsonc && sed -i \"s/[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]/${nextRelease.version}/\" egg.json && sed -i \"s/v[[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]/v${nextRelease.version}/\" lib/scrypt_bench.ts && sed -i \"s/@version [[:digit:]]\\+\\.[[:digit:]]\\+\\.[[:digit:]]/@version ${nextRelease.version}/\" mod.ts"
       }
     ],
     [
@@ -13,6 +13,7 @@
         "assets": [
           "README.md",
           "egg.json",
+          "deno.jsonc",
           "lib/_wasm/scrypt_wasm.generated.js",
           "lib/scrypt_bench.ts"
         ],
