@@ -20,18 +20,18 @@ import { scrypt } from "./lib/scrypt.ts";
 const encoder = new TextEncoder();
 
 /**
- * Hash a password with scrypt. Outputs a string in rscrypt format.
+ * Hash a password with scrypt. Outputs a string in scrypt format by default.
  * @author oplik0
  * @param {string} password - Password that will be hashed
  * @param {ScryptParameters} [parameters] - Scrypt parameters (n, r and p) used for hashing.
+ * @param {scryptFormat} [format="scrypt"] - format of the result. Defaults to scrypt encrypted data format (https://github.com/Tarsnap/scrypt/blob/master/FORMAT)
  * @param {number} [parameters.logN=14] - log2 of the work factor N. Must be an integer between 1 and 63. Defaults to 14 (N=16384)
  * @param {number} [parameters.r=8] - Block size. Defaults to 16
  * @param {number} [parameters.p=1] - Parralelism factor. Defaults to 1
  * @param {string} [parameters.salt] - custom salt (by default it will be randomly generated)
  * @param {number} [parameters.dklen=64] - desired key length (in bytes)
  * @param {number} [parameters.N=16384] - full number of iterations if you don't like using logN (this overrides that setting). Must be a power of 2.
- * @param {scryptFormat} [format="scrypt"] - format of the result. Defaults to scrypt encrypted data format (https://github.com/Tarsnap/scrypt/blob/master/FORMAT)
- * @returns {string} - Hash in scrypt format
+ * @returns {string} - Hash in the chosen format (scrypt by default)
  */
 export function hash(
   password: string,
@@ -75,9 +75,9 @@ export function hash(
  * Checks provided string against provided hash
  * @author oplik0
  * @param {string} password - string that will be checked against the hash
- * @param {string} testedHash - hash in a compatible format (scrypt or phc formats supported for now)
- * @param {scryptFormat} [format] - format od the tested hash. Will be detected automatically if not provided
- * @returns {boolean} result of the check
+ * @param {string} testedHash - hash in a compatible format (scrypt and phc formats supported for now)
+ * @param {scryptFormat} [format] - format of the tested hash. Will attempt to detect it automatically if it's not provided.
+ * @returns {boolean} result of the check, true if the password matches the hash
  */
 export function verify(
   password: string,
@@ -94,7 +94,7 @@ export function verify(
  * generate random salt using Deno csprng (crypto.getRandomValues)
  * @author oplik0
  * @param {number} [length=16] - numebr of bytes to generate
- * @param {string} [outputType] - either string or Uint8Array
+ * @param {string} [outputType] - decide if the output should be a string or Uint8Array
  * @returns {string|Uint8Array} random salt
  */
 export function genSalt(
@@ -109,3 +109,6 @@ export function genSalt(
     : decoder.decode(randomArray);
   return salt;
 }
+
+// re-export types
+export type { logN, scryptFormat, ScryptParameters } from "./lib/format.ts";
