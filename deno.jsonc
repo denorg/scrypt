@@ -3,14 +3,16 @@
   "version": "4.3.2",
   "exports": {
     ".": "./mod.ts",
-    "./cli": "./cli.ts"
+    "./cli": "./cli.ts",
+    "./format": "./lib/format.ts",
+    "./hmac": "./lib/hmac.ts"
   },
   "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
   "lint": {
     "exclude": [
-        "lib/_wasm/wasm.js",
-        "lib/_wasm/out/"
-      ]
+      "lib/_wasm/wasm.js",
+      "lib/_wasm/out/"
+    ]
   },
   "tasks": {
     "wasmbuild": "deno run --allow-env --allow-run --allow-read --allow-write --allow-net jsr:@deno/wasmbuild@0.16.0 --out ./lib/_wasm --project scrypt-wasm --sync"
