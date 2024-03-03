@@ -1,3 +1,8 @@
+/**
+ * @module scrypt-cli
+ * @author oplik0
+ * This is a simple CLI for the scrypt module. It doesn't export anything, but can be used as a standalone script.
+ */
 import { genSalt, hash, verify } from "./mod.ts";
 /**
  * @todo add a proper argument parser ([args](https://deno.land/x/args) perhaps?)
