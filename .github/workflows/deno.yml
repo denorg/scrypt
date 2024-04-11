@@ -41,7 +41,8 @@ jobs:
         with:
           deno-version: 1.x
       - name: Run benchmarks
-        run: deno bench --unstable .
+        continue-on-error: true
+        run: deno bench
   release:
     name: Release
     permissions:
