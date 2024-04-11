@@ -1,15 +1,11 @@
 #![no_std]
 extern crate alloc;
 extern crate scrypt;
-extern crate talc;
 extern crate wasm_bindgen;
 use alloc::vec;
 use alloc::vec::Vec;
 use scrypt::{scrypt, Params};
 use wasm_bindgen::prelude::*;
-#[cfg(target_arch = "wasm32")]
-#[global_allocator]
-static TALC: talc::TalckWasm = unsafe { talc::TalckWasm::new_global() };
 
 #[wasm_bindgen]
 pub fn scrypt_hash(password: &[u8], salt: &[u8], n: u32, r: u32, p: u32, dklen: usize) -> Vec<u8> {
