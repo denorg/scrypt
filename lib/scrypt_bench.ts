@@ -61,7 +61,7 @@ const scryptImplementations = {
   "hash-wasm": scryptWasm,
   "noble-hashes": scryptNoble,
   "node": scryptNode,
-  "scrypto": scrypto,
+  // "scrypto": scrypto, // disabled because it's 5x slower, so the data isn't very useful and the benchmark takes unnecessarily long
 };
 
 const extremeSalt =
