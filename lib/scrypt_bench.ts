@@ -7,6 +7,7 @@ import { scrypt } from "./scrypt.ts";
 import { scrypt as scryptNodeRaw } from "node:crypto";
 import { scrypt as scryptoRaw } from "https://deno.land/x/scrypto@v1.0.0/main.ts";
 import { scrypt as scryptWasmRaw } from "npm:hash-wasm"
+import { scrypt as scryptNobleRaw } from "npm:@noble/hashes/scrypt"
 
 function scryptNode(
   password: string,
@@ -43,10 +44,22 @@ function scryptWasm (
   return scryptWasmRaw({password, salt, costFactor: N, blockSize: r, parallelism: p, hashLength: dkLen});
 }
 
+function scryptNoble (
+  password: string,
+  salt: string,
+  N: number,
+  r: number,
+  p: number,
+  dkLen: number = 64,
+) {
+  return scryptNobleRaw(password, salt, {N, r, p, dkLen});
+}
+
 const scryptImplementations = {
   "current": scrypt,
   "last version": scryptOld,
   "hash-wasm": scryptWasm,
+  "noble-hashes": scryptNoble,
   "node": scryptNode,
   "scrypto": scrypto,
 };
