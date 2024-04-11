@@ -165,6 +165,9 @@
     "https://deno.land/x/scrypt@v4.4.2/lib/hmac.ts": "54b688de699b29a139c4aa68655f54c73eaca5ac54006da25bb0049785c2a3f3",
     "https://deno.land/x/scrypt@v4.4.2/lib/scrypt.ts": "af42fa97e6fc7b64a1abae2899c084a6c798f37c8095c85c937cef1543134ce2",
     "https://deno.land/x/scrypt@v4.4.2/mod.ts": "07207d49a11814a7a8fc53e356756fe78cbdf7e5dc08fd7e34697b4e8f44db71",
+    "https://deno.land/x/scrypt@v4.4.3/deps.ts": "322cb38bd59721b93b7c75f6bab822230234f908ff1059bedfb5423470147be8",
+    "https://deno.land/x/scrypt@v4.4.3/lib/_wasm/scrypt_wasm.generated.js": "9da6221a40f5378096cdaa43dbc1f7af3889d224395317fa18a917a8368ee216",
+    "https://deno.land/x/scrypt@v4.4.3/lib/scrypt.ts": "af42fa97e6fc7b64a1abae2899c084a6c798f37c8095c85c937cef1543134ce2",
     "https://deno.land/x/scrypto@v1.0.0/main.ts": "2f5733cbbef436d87e128204df4baf8de0177bd2ce38601e1a83e866bc828d0c",
     "https://deno.land/x/scrypto@v1.0.0/scrypt.ts": "8db05b7f839f9442fbd2df1e7e93b7245a409abbf2a6a7ba28e71f8ff0ffbf33"
   },

@@ -10,7 +10,7 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 getrandom = { version = "0.2", features = ["js"] }
 scrypt = { version = "0.11", default-features = false }
-wasm-bindgen = { version = "=0.2.92", default-features = false, features = ["spans"] }
+wasm-bindgen = { version = "=0.2.92", default-features = false }
 
 [dev-dependencies]
 wasm-bindgen-test = "=0.3.42"
