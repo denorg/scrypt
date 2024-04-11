@@ -93,4 +93,4 @@ jobs:
       - name: Publish to JSR
         run: |
           sed  -i "s/from \".*\"; \/\/jsr: /from /" deps.ts # remove https imports
-          deno publish
+          deno publish --allow-dirty
