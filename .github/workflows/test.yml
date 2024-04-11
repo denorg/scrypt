@@ -31,6 +31,7 @@ jobs:
     runs-on: ubuntu
     needs: test
     if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    continue-on-error: true # Node.js Scrypt runs out of memory and throws in larger benchmarks...
     env:
       GH_ACTIONS: true
       DENO_BUILD_MODE: release
