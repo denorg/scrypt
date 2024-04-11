@@ -16,7 +16,7 @@ function that doesn't require any privileges.
 Import the `hash` and/or `verify` functions and use them:
 
 ```ts
-import { hash, verify } from "jsr:@denorg/scrypt@4.3.4";
+import { hash, verify } from "jsr:@denorg/scrypt@4.4.0";
 
 const hashResult = hash("password");
 const verifyResult = verify("password", hashResult);
@@ -37,14 +37,14 @@ dpx scrypt verify <password> <hash>
 Alternatively, you can use it directly from the CLI by using `deno run`:
 
 ```bash
-deno run jsr:@denorg/scrypt@4.3.4/cli hash <password>
-deno run jsr:@denorg/scrypt@4.3.4/cli verify <password> <hash>
+deno run jsr:@denorg/scrypt@4.4.0/cli hash <password>
+deno run jsr:@denorg/scrypt@4.4.0/cli verify <password> <hash>
 ```
 
 You can also install it globally using the following:
 
 ```bash
-deno install -n scrypt jsr:@denorg/scrypt@4.3.4/cli
+deno install -n scrypt jsr:@denorg/scrypt@4.4.0/cli
 ```
 
 Then, the package is available to run:
