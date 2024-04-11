@@ -15,7 +15,7 @@
     ]
   },
   "tasks": {
-    "wasmbuild": "deno run --allow-env --allow-run --allow-read --allow-write --allow-net jsr:@deno/wasmbuild@0.17.1 --out ./lib/_wasm --project scrypt-wasm --sync"
+    "wasmbuild": "RUSTFLAGS='-C target-feature=+simd128' deno run --allow-env --allow-run --allow-read --allow-write --allow-net jsr:@deno/wasmbuild@0.17.1 --out ./lib/_wasm --project scrypt-wasm --sync"
   },
   "fmt": {
     "exclude": [
