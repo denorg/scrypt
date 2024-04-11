@@ -25,7 +25,7 @@ const encoder = new TextEncoder();
  * @param {string} password - Password that will be hashed
  * @param {ScryptParameters} [parameters] - Scrypt parameters (n, r and p) used for hashing.
  * @param {scryptFormat} [format="scrypt"] - format of the result. Defaults to scrypt encrypted data format (https://github.com/Tarsnap/scrypt/blob/master/FORMAT)
- * @param {number} [parameters.logN=14] - log2 of the work factor N. Must be an integer between 1 and 63. Defaults to 14 (N=16384)
+ * @param {number} [parameters.logN=17] - log2 of the work factor N. Must be an integer between 1 and 63. Defaults to 14 (N=16384)
  * @param {number} [parameters.r=8] - Block size. Defaults to 16
  * @param {number} [parameters.p=1] - Parralelism factor. Defaults to 1
  * @param {string} [parameters.salt] - custom salt (by default it will be randomly generated)
