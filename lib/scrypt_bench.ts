@@ -46,9 +46,9 @@ function scryptWasm (
 const scryptImplementations = {
   "current": scrypt,
   "last version": scryptOld,
+  "hash-wasm": scryptWasm,
   "node": scryptNode,
   "scrypto": scrypto,
-  "hash-wasm": scryptWasm,
 };
 
 const extremeSalt =
@@ -85,16 +85,24 @@ for (const [name, implementation] of Object.entries(scryptImplementations)) {
     await implementation(extremePassword, extremeSalt, 1024, 8, 1, 64);
   });
 
-  Deno.bench(`standard scrypt - ${name}`, {
-    group: "scrypt",
+  Deno.bench(`old standard scrypt (logN=14) - ${name}`, {
+    group: "scrypt (logN=14)",
     baseline: name === "current",
   }, async () => {
     await implementation("password", "salt", 16384, 8, 1, 64);
   });
+
+  Deno.bench(`standard scrypt (logN=17) - ${name}`, {
+    group: "scrypt",
+    baseline: name === "current",
+  }, async () => {
+    await implementation("password", "salt", 131072, 8, 1, 64);
+  });
+
   Deno.bench(
-    `standard scrypt - ${name} (longer password and salt)`,
+    `old standard scrypt (logN=14) - ${name} (longer password and salt)`,
     {
-      group: "scrypt (longer password and salt)",
+      group: "scrypt (logN=14; longer password and salt)",
       baseline: name === "current",
     },
     async () => {
@@ -110,9 +118,27 @@ for (const [name, implementation] of Object.entries(scryptImplementations)) {
   );
 
   Deno.bench(
-    `standard scrypt - ${name} (extremely long password and salt)`,
+    `standard scrypt (logN=17) - ${name} (longer password and salt)`,
     {
-      group: "scrypt (extremely long password and salt)",
+      group: "scrypt (longer password and salt)",
+      baseline: name === "current",
+    },
+    async () => {
+      await implementation(
+        "long password to test that",
+        "long salt to test that",
+        131072,
+        8,
+        1,
+        64,
+      );
+    },
+  );
+
+  Deno.bench(
+    `old standard scrypt (logN=14) - ${name} (extremely long password and salt)`,
+    {
+      group: "scrypt (logN=14; extremely long password and salt)",
       baseline: name === "current",
     },
     async () => {
@@ -120,24 +146,35 @@ for (const [name, implementation] of Object.entries(scryptImplementations)) {
     },
   );
 
+  Deno.bench(
+    `standard scrypt (logN=17) - ${name} (extremely long password and salt)`,
+    {
+      group: "scrypt (extremely long password and salt)",
+      baseline: name === "current",
+    },
+    async () => {
+      await implementation(extremePassword, extremeSalt, 131072, 8, 1, 64);
+    },
+  );
+
   Deno.bench(`large n scrypt - ${name} (4x standard)`, {
     group: "large n scrypt",
     baseline: name === "current",
   }, async () => {
-    await implementation("password", "salt", 65536, 8, 1, 64);
+    await implementation("password", "salt", 524288, 8, 1, 64);
   });
 
   Deno.bench(`large r scrypt - ${name} (4x standard)`, {
     group: "large r scrypt",
     baseline: name === "current",
   }, async () => {
-    await implementation("password", "salt", 16384, 32, 1, 64);
+    await implementation("password", "salt", 131072, 32, 1, 64);
   });
 
   Deno.bench(`large p scrypt - ${name} (4x standard)`, {
     group: "large p scrypt",
     baseline: name === "current",
   }, async () => {
-    await implementation("password", "salt", 16384, 8, 4, 64);
+    await implementation("password", "salt", 131072, 8, 4, 64);
   });
 }
