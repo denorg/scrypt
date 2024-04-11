@@ -2,7 +2,7 @@
  * Just a few simple benchmarks
  * @todo document the benchmarks better
  */
-import { scrypt as scryptOld } from "https://deno.land/x/scrypt@v4.4.2/lib/scrypt.ts";
+import { scrypt as scryptOld } from "https://deno.land/x/scrypt@v4.4.3/lib/scrypt.ts";
 import { scrypt } from "./scrypt.ts";
 import { scrypt as scryptNodeRaw } from "node:crypto";
 import { scrypt as scryptoRaw } from "https://deno.land/x/scrypto@v1.0.0/main.ts";

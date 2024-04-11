@@ -1,7 +1,7 @@
 /**
  * @module scrypt
  * @author oplik0
- * @version 4.4.2
+ * @version 4.4.3
  */
 
 import { timingSafeEqual } from "./deps.ts";
